@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html data-ng-app="onitaApp" lang="en" class="">
+<head>
+	<meta charset="UTF-8"/>
+	<title>سامانه تخصصی ترجمه دانشجویی آنلاین اونیتا</title>
+	<!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="سامانه ترجمه مقاله پروژه پایان نامه دانشجویی اونیتا">
+	<meta name="keywords" content="ترجمه, دانشجویی, مقاله, پایان نامه, چکیده, isi, پروژه, دانشجویی, کیفیت , هزینه کم, تحویل سریع">
+	<meta name="author" content="PeHash">
+	<meta name="Resource-type" content="Document" />
+
+	<!-- Required Framework-->
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+
+	<!-- Google font & font-awasome-->
+	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/themify-icons.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+
+	<!-- OWL.css-->
+	<link rel="stylesheet" type="text/css" href="assets/css/owl.carousel.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/owl.theme.default.css">
+
+	<!--slick-carousel css-->
+	<link rel="stylesheet" type="text/css" href="assets/css/slick.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/slick-theme.css">
+	<!-- Swiper slider -->
+	<link rel="stylesheet" type="text/css" href="assets/css/swiper.css">
+
+	<!--angular-backtop.css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/angular-backtop.css">
+
+	<!--angular-typewrite css-->
+    <link rel="stylesheet" type="text/css" href="assets/css/typewriter.css">
+	<!-- Style css-->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<!-- Reset css-->
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+
+	<!-- Responsive css -->
+	<link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
+
+	<!-- Color Style -->
+	<link href="assets/css/color/gradient-color-1.css" rel="stylesheet" media="screen" id="color" />
+
+<!-- ------------------------Seperator----------------------- -->
+
+	<!-- Angularjs Toaster -->
+	<link rel="stylesheet" type="text/css" href="bower_components/AngularJS-Toaster/toaster.min.css">
+
+	<!-- RzSlider -->
+	<link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.min.css">
+
+	<!-- Onita App -->
+	<link rel="stylesheet" type="text/css" href="assets/css/onitaApp.css">
+
+
+
+</head>
+<body data-ng-controller="MyController" data-spy="scroll" data-target=".navbar" data-offset="50">
+<div id="main_loader">
+	<div id="loader">
+		<div class="outer_spin"><div class="inner_spin"></div></div>
+	</div>
+</div>
+<!--=== Navigation menu starts ===-->
+
+
+<nav class="navbar default top-nav-collapse">
+	<div class="container">
+		<div class="navbar-header float-right">
+			<button type="button" class="navbar-toggle hidden-xs float-left" data-toggle="collapse" data-target="#myNavbar">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="index.html" class="brand-logo">
+				<!-- <h1> اونیتا </h1> -->
+				<img src="assets/images/logo/logo-typo-w.png" alt="لوگو اونیتا">
+			</a>
+		</div>
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav pull-left" ng-if="!isUser">
+				<li class="active">
+					<a href="#home" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('login');">ورود</a>
+				</li>
+				<li>
+					<a href="#home" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('signup');">عضویت</a>
+				</li>
+			</ul>
+			<ul class="nav navbar-nav pull-left">
+				<div style="margin-top:23px;margin-left:50px;" class="btn-group" uib-dropdown is-open="status.isopen" ng-if="isUser">
+					<button id="profile-btn" type="button" class="btn theme_btn" uib-dropdown-toggle ng-disabled="disabled">
+					<span class="caret"></span> سلام دوست عزیز
+					</button>
+					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+					<li role="menuitem"><a href="#"> خوش آمدید </a></li>
+					<li class="divider"></li>
+					<li role="menuitem"><a href="#">تنظیمات</a></li>
+					<li role="menuitem"><a href="/app">سفارشات</a></li>
+					<li role="menuitem"><a href="#">صورت حساب ها</a></li>
+					<li role="menuitem"><a href="#">کیف پول</a></li>
+					<li class="divider"></li>
+					<li role="menuitem"><a href="#">خروج</a></li>
+					</ul>
+				</div>
+			</ul>
+		</div>
+	</div>
+	<div class="header-down" ng-if="isUser">
+		<div class="container">
+			<div class="spotlight">
+				<ul class="exchange">
+					<i class="fa fa-money"></i>
+					<span class=""> اعتبار شما </span>
+					<li class="USD">
+						<span class="balanceraw">{{43423234.00 | number}}</span>
+					</li>
+				</ul>
+				<div class="header-total">
+					<a href="/cashin" id="take-funds" class="btn deposit-btn">افزایش موجودی <i class="fa fa-sign-in" aria-hidden="true"></i>
+					<a href="#" id="add-funds" class="btn withdraw-btn">تسویه حساب<i class="fa fa-sign-out" aria-hidden="true"></i></a>
+</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+<!--=== Navigation menu ends ===-->
+<!-- <nav class="header-down">
+	
+</nav> -->
+
+
+<div ng-view class="ngview">
+
+	<div id="main_loader">
+		<div id="loader">
+			<div class="outer_spin"><div class="inner_spin"></div></div>
+		</div>
+	</div>
+
+</div>
+
+
+<!-- Footer section starts -->
+<footer>
+	<div class="container contact_container">
+		<div class="row">
+			<div class="footer_data">
+				<div class="col-sm-4">
+					<ul class="client_data">
+						<li>
+							<span class="contact"></span>
+							<div class="client_detail">
+								<h4>تماس با ما</h4>
+								<span>۰۹۳۵ ۵۵ ۲۰۲۰۸</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-4">
+					<ul class="client_data">
+						<li>
+							<span class="email"></span>
+
+							<div class="client_detail">
+								<h4>جذب مترجم</h4>
+								<a href="https://t.me/tele_job"><span>@tele_job</span></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="col-sm-4">
+					<ul class="client_data">
+						<li>
+							<span class="location"></span>
+
+							<div class="client_detail">
+								<h4> ثبت سفارش ترجمه</h4>
+								<a href="https://t.me/onitabot"><span>@OnitaBot</span></a>
+							</div>
+						</li>
+					</ul>
+				</div> 
+			</div>
+		</div>
+	</div>
+	<section id="main_footer"   data-parallax-background class="parallax-img" data-parallax-ratio="0.2" style="background-image: url(assets/images/bg_footer.jpg);">
+		<div class="bg_layer"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 rtl">
+					<a href="index.html" class="brand-logo">
+						<img src="assets/images/logo/logo-typo-w.png" alt="لوگو اونیتا">
+					</a>
+					<p class="mb30">
+						اونیتا بستر ترجمه آنلاین کاملا متمرکز بر نیاز دانشجو است که امکان دسترسی به مجرب ترین مترجمین را فراهم آورده است .
+					</p>
+					<div class="social_icons hidden">
+						<a href="#">
+							<span class="fb_footer"></span>
+						</a>
+						<a href="#">
+							<span class="twt_footer"></span>
+						</a>
+						<a href="#">
+							<span class="pinit_footer"></span>
+						</a>
+						<a href="#">
+							<span class="linkedin_footer"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer_line text-center rtl">
+			<p>تمامی حقوق محتوای متنی و بصری این سایت متعلق به اونیتا &copy; می باشد . </p>
+
+		</div>
+	</section>
+</footer>
+<!-- Footer section ends -->
+
+
+
+<!-- Required js -->
+<script src="assets/js/jquery.2.2.3.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<!-- Angular Js start -->
+
+<!--AngularJs-->
+<script src="bower_components/angular/angular.min.js"></script>
+
+<!-- Angular Route  -->
+<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+
+<!-- Angular Animate  -->
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+
+<!-- Angularjs Toaster -->
+<script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
+
+<!-- Angular Recaptcha -->
+<script type="text/javascript" src="bower_components/angular-recaptcha/release/angular-recaptcha.min.js"></script>
+
+<!-- Angularjs Slider -->
+<script src="bower_components/angularjs-slider/dist/rzslider.min.js"></script>
+
+<!-- Ng File Upload -->
+<script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+
+<!-- Module -->
+<script src="assets/modules/module.js" ></script>    
+
+<!-- Factory -->
+<script type="text/javascript" src="assets/factory/auth.js"></script>
+
+<!-- Controller -->
+<script src="assets/controllers/controller.js" ></script>   
+
+<!-- ng-backstretch.min.js -->
+<script src="assets/angularJS/ng-backstretch.js" ></script>
+
+  <!-- scrollreveal animation -->
+    <script type="text/javascript" src="assets/js/scrollreveal.js"></script> 
+
+    <!-- fox-angular-scrollReveal.js -->
+    <script src="assets/angularJS/fox-angular-scrollReveal.js"></script>
+
+     <!-- Modernizr js -->
+    <script src="assets/js/modernizr-custom.js" type="text/javascript"></script> 
+
+ <!--angular-parallax.js-->
+            <script src="assets/angularJS/angular-parallax.js" ></script>
+
+<!--Slick js-->
+			<script src="assets/angularJS/slick-carousel/slick.js"></script>
+			<script src="assets/angularJS/slick.js"></script>
+
+<!--AngularJs swiper-->
+<script src="assets/angularJS/swiper.js"></script>
+<script src="assets/angularJS/angular-swiper.js"></script>
+
+<!--OWL Carousel JS -->
+<script src="assets/js/owl.carousel.min.js"></script>
+
+<!-- ui-bootstrap-tpls-2.0.2.js -->
+    <script type="text/javascript" src="assets/angularJS/ui-bootstrap-tpls-2.0.2.js"></script>
+
+ <!-- angular-scroll.js -->
+            <script src="assets/angularJS/angular-scroll.js" ></script>  
+
+ <!-- bottom to top Scrolling -->
+            <script src="assets/angularJS/angular-backtop.js" ></script>  
+<!-- Typing js  -->
+<script src="assets/angularJS/typewriter.js"></script>
+
+<!-- Persian Date Picker  -->
+<script src="assets/js/persiandate.js"></script>
+<script src="assets/js/persiandate-tpls.js"></script>
+
+</body>
+</html>

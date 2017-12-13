@@ -1,0 +1,28 @@
+{
+  "name": "angular-material-persian-datepicker",
+  "version": "1.2.0",
+  "description": "Persian Datepicker for AngularJS Material",
+  "main": [
+    "dist/datePicker.min.js"
+  ],
+  "authors": [
+    "mrmashal"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "persian",
+    "jalaali",
+    "datepicker",
+    "angular-material"
+  ],
+  "homepage": "https://github.com/mrmashal/angular-material-persian-datepicker",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demo",
+    "index.html"
+  ]
+}
