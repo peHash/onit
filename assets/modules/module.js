@@ -22,26 +22,54 @@ app.provider('Modernizr', function() {
     };
  });
 
-app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+app.config(routeConfig);
+
+config.$inject = ['$routeProvider', '$locationProvider'];
+
+function routeConfig($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode({enabled: true,requireBase: false});
+  $locationProvider.hashPrefix('');
     $routeProvider
         .when('/', {
             templateUrl: 'view/landing.html',
             controller: 'MyController'
         })
-        .when('/app', { 
+        .when('/deposit', { 
             templateUrl: 'view/partials/modal-payment.html', 
-            controller: 'MyController' 
+            controller: 'depositController' 
+        })
+        .when('/deposit/:transId', {
+            templateUrl: 'view/partials/modal-payment.html',
+            controller: 'depositController'
         })
         .when('/cashin', { 
-            templateUrl: 'views/home.html', 
+            templateUrl: 'view/landing.html', 
+            controller: 'MyController'
         })
         .otherwise({ 
-            redirectTo: '/ofidjo' 
+            redirectTo: '/' 
         });
-     $locationProvider.html5Mode({
-      enabled: true,
-      requireBase: false});
-});
+}
+
+// app.config(function ($routeProvider, $locationProvider, $httpProvider) {
+//     $locationProvider.html5Mode({enabled: true,requireBase: false});
+//     $routeProvider
+//         .when('/', {
+//             templateUrl: 'view/landing.html',
+//             controller: 'MyController'
+//         })
+//         .when('/app', { 
+//             templateUrl: 'view/partials/modal-payment.html', 
+//             controller: 'MyController' 
+//         })
+//         .when('/cashin', { 
+//             templateUrl: 'views/home.html', 
+//             controller: 'MyController'
+//         })
+//         .otherwise({ 
+//             redirectTo: '/' 
+//         });
+// });
 
 
 // app.config(config);

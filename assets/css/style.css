@@ -1,3 +1,11 @@
+div[ng-view] > section {
+    padding-top: 130px !important;
+}
+
+nav {
+    background: linear-gradient(-90deg, #01ccdf, #0e7ae8)
+}
+
 li.form-step {
     width: 100%;   
     float: right;
@@ -556,7 +564,7 @@ nav.top-nav-collapse {
 }
 .scroll_menu {
     padding: 0;
-    background: #0e7ae8;
+    /*background: #0e7ae8;*/
     border: none;
 }
 .scroll_menu h1 {
@@ -591,7 +599,7 @@ header {
     overflow: hidden;
 }
 .bg_slider{
-    background: none;
+    /*background: none;*/
 }
 #typed{
     color: #fff;

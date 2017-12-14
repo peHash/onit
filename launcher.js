@@ -104,11 +104,30 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
   });
 };
 
-ubs = new Schema({
+var ubs = new Schema({
   mobile : {type: Number, default: ''},
   email: { type: String, unique: true, lowercase: true, trim: true , required: true},
-  password: { type: String }
-})
+  password: { type: String }, 
+  deposits: {type: mongoose.Schema.Types.ObjectId},
+  ballance: [{
+    amount: Number,
+    date: String,
+    msg: String
+  }]
+});
+
+ubs.pre('save', function(next) {
+  var user = this;
+  if (!user.isModified('password')) return next();
+  bcrypt.genSalt(10, function(err, salt) {
+    if (err) return next(err);
+    bcrypt.hash(user.password, salt, function(err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
+  });
+});
 
 ubs.methods.comparePassword = function(cP, cb) {
   bcrypt.compare(cP, this.password, function(err, isMatch) {
@@ -116,6 +135,18 @@ ubs.methods.comparePassword = function(cP, cb) {
     cb(null, isMatch);
   });
 };
+
+var walletSchema = new mongoose.Schema({
+  id: ObjectId,
+  transId: Number,
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  amount:  Number,
+  message:  String,
+  date:  String,
+  mobile:  Number, 
+  cardNumber: Number, 
+  factorNumber: Number
+});
 
 var jobSchema = new Schema({
   
@@ -237,6 +268,8 @@ var Project = mongoose.model('Project', projectSchema);
 
 var Customer = mongoose.model('Customer', ubs);
 
+var Wallet = mongoose.model('Wallett', walletSchema);
+
 var Job = mongoose.model('Job', jobSchema);
 
 var Bid = mongoose.model('Bid', bidSchema);
@@ -245,19 +278,19 @@ var Article = mongoose.model('Article', articleSchema);
 
 var Post = mongoose.model('Post', postSchema);
 
-mongoose.connect('mongodb://localhost/onita_ir');
+mongoose.connect('mongodb://localhost/onit', {useMongoClient: true});
 
-mongoose.connection.on('open', function () {
-  mongoose.connection.db.listCollections().toArray(function (err, names) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(names);
-    }
+// mongoose.connection.on('open', function () {
+//   mongoose.connection.db.listCollections().toArray(function (err, names) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(names);
+//     }
 
-    mongoose.connection.close();
-  });
-});
+//     mongoose.connection.close();
+//   });
+// });
 
 var app = express();
 
@@ -291,6 +324,13 @@ app.use(function (req, res, next) {
     next();
 });
 
+// var wall = new Wallet({
+//   transId: 234234
+// })
+// wall.save(function(err, wall){
+//   if (wall) {console.log(wall)}
+// })
+
 function ensureAuthenticated(req, res, next) {
   if (req.headers.authorization) {
     var token = req.headers.authorization.split(' ')[1];
@@ -320,8 +360,42 @@ function createJwtToken(user) {
 }
 
 
-app.post('/api/cbpayment', function(req,res){
-  res.render('edit.html', {serverData: req.body});
+app.post('/api/cpayment', function(req,res){
+
+  if (req.body.status == 1) {
+    Wallet.findOne({ transId: req.body.transId}, function(err, wallet) {
+      if (err) return next(err);
+      wallet = _.extend(wallet, req.body);
+      wallet.save(function(err){
+        if (err) return next(err);
+        res.redirect(`/deposit/${'wallet.transId'}/`);
+      })
+    })
+  } else {
+    res.redirect('/deposit/error');
+  }
+  //   var wallet = new Wallet({
+  //     factorNumber:  req.body.transId,
+  //     userId: {type: mongoose.Schema.Types.ObjectId},
+  //     msg:  req.body.message,
+  //     date:  new Date(),
+  //     mobile:  req.body.mobile
+  //     projectCat: req.body.projectCat,
+  //     projectName: req.body.projectName,
+  //     projectDesc: req.body.projectDesc,
+  //     // username: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  //     username: req.body.username,
+  //     fileName: req.body.fileName,
+  //     addedDate: new Date(),
+  //     lastUpdate: new Date()
+  // }
+  // });
+  // project.save(function(err) {
+  //   if (err) return next(err);
+  //   res.send(200);
+  // });
+  // }
+  
 })
 
 
@@ -340,14 +414,33 @@ var options = {
     form: {
         'api': req.body.api,
         'amount': req.body.amount,
-        'redirect': req.body.redirect
-        // 'factorNumber': Math.random()*(Math.pow(10,15)).toString()
+        'redirect': req.body.redirect, 
+        'mobile': req.body.mobile,
+        'factorNumber': req.body.factorNumber
       }
 }
 // Start the request
 request(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        res.status(200).send(body);
+    if (!error && response.statusCode == 200 && body) {
+        var transId = JSON.parse(body).transId;
+        Wallet.findOne({ transId: transId }, function(err, wallet) {
+          if (err) return console.log(err);
+          if (wallet) {
+            res.status(200).send({err: 10001, msg: 'factorNumber duplication error !'});
+          } else {
+            var wall = new Wallet({
+              transId: transId
+            });
+            wall.save(function(err, wallet){
+              if (err) return console.log(err);
+              res.status(200).send(body);
+            });
+          }
+        });
+       
+        
+    } else {
+      res.status(500).send({err: 50005, msg: 'something is not right here'});
     }
 })
 })
@@ -511,12 +604,12 @@ app.post('/auth/signup', function(req, res, next) {
   customer
   customer.save(function(err) {
     if (err) return next(err);
-    res.send(200);
+    res.sendStatus(200);
   });
 });
 
 app.post('/auth/login', function(req, res, next) {
-  User.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
+  Customer.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
     // if (!user) return res.send(401, 'User does not exist');
     if (!user) return res.status(401).send('User does not exist');
     user.comparePassword(req.body.password, function(err, isMatch) {

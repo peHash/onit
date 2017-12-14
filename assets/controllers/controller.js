@@ -1,3 +1,5 @@
+
+
 app.controller('MyController', function ($scope,Modernizr,$window, $http, $uibModal,$timeout) {
 
 $scope.isUser = false;
@@ -248,15 +250,16 @@ function loginController($rootScope, $scope, Auth, toaster, $uibModalInstance, $
 
   $scope.login = function() {
     Auth.login({email: $scope.email, password: $scope.password})
-    .success(function(data) {
+    .then(function(data) {
+            var data = data.data;
             toaster.pop('success', 'LOGIN SUCCESS', 'سلام بهترین');
             $window.localStorage.token = data.token;
             var payload = JSON.parse($window.atob(data.token.split('.')[1]));
             $rootScope.currentUser = payload.user;
             $rootScope.userLogged = true;
             $timeout(function() {$uibModalInstance.close();}, 1000);
-          })
-          .error(function(err) {
+          },
+          (err) => {
             toaster.pop('error','lOGIN FAILED', err);
             delete $window.localStorage.token;
           });
@@ -271,11 +274,11 @@ function signUpController($scope, Auth, toaster, $uibModalInstance){
         mobile: $scope.tel,
         password: $scope.password
       })
-      .success(function() {
+      .then(function() {
             toaster.pop('success','SIGNUP SUCCESS', 'خوش اومدی بهترین');
             $timeout(function() {$uibModalInstance.close();}, 3000);
-          })
-          .error(function(err) {
+          },
+          (err) => {
             toaster.pop('error','SIGNUP FAILED', err);
           });
     };
@@ -573,11 +576,39 @@ $scope.ost = 0;
  /* Backstretch slider End*/
 
 
-
-
-
-
-
   
 }).value('duScrollOffset', 50);
 
+
+
+
+app.controller('depositController', function($scope,$routeParams, $location, $http, $window){
+
+$scope.deposit = function() {
+    var config = {
+      method: 'POST',
+      url: '/api/payment',
+      data: {
+        'url': 'https://pay.ir/payment/send',
+        'api': 'test',
+        'amount': parseInt($scope.amount),
+        'redirect': 'http://onita.ir/api/cpayment', 
+        'mobile': parseInt(09355520208),
+        'factorNumber': Math.random()*(Math.pow(10,15)).toString()
+      }
+    }
+    $http(config).then(resolve, reject);
+    function resolve(r){
+      if (r && r.data.err == 10001) {
+        console.log('factor Number duplication error')
+      } // todo REF
+      else {
+        $window.location.href = 'https://pay.ir/payment/gateway/' + r.data['transId']
+      }
+    }
+    function reject(e){
+      console.log(e)
+    };
+  }
+
+});

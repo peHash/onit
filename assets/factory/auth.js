@@ -3,9 +3,16 @@ angular.module('onitaApp')
   .factory('Auth', function($http, $location, $rootScope, $window, toaster) {
     var token = $window.localStorage.token;
     if (token) {
-      var payload = JSON.parse($window.atob(token.split('.')[1]));
-      $rootScope.currentUser = payload.user;
-      $rootScope.userLogged = true;
+      try {
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+        $rootScope.currentUser = payload.user;
+        $rootScope.userLogged = true;  
+      }
+      catch(err) {
+        console.log('error in openning token', err);
+        delete $window.localStorage.token;
+      }
+      
     }
     
     // // Asynchronously load Google+ SDK
@@ -27,16 +34,11 @@ angular.module('onitaApp')
         return;
       },
       login: function(user) {
+        $location.path('/app');
         return $http.post('/auth/login', user);
       },
       signup: function(user) {
         return $http.post('/auth/signup', user);
-          // .success(function() {
-          //   $location.path('/login');
-          // })
-          // .error(function(err) {
-          //   toaster.pop('error','SIGNUP FAILED', err);
-          // });
       },
       logout: function() {
         delete $window.localStorage.token;
