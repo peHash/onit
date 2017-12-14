@@ -592,8 +592,8 @@ $scope.deposit = function() {
         'url': 'https://pay.ir/payment/send',
         'api': 'test',
         'amount': parseInt($scope.amount),
-        'redirect': 'http://onita.ir/api/cpayment', 
-        'mobile': parseInt(09355520208),
+        'redirect': 'http://198.143.181.86:1212/api/cpayment', 
+        'mobile': parseInt(09355520208),  
         'factorNumber': Math.random()*(Math.pow(10,15)).toString()
       }
     }
