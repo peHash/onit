@@ -24,10 +24,10 @@ app.provider('Modernizr', function() {
 
 app.config(routeConfig);
 
-config.$inject = ['$routeProvider', '$locationProvider'];
+routeConfig.$inject = ['$routeProvider', '$locationProvider'];
 
 function routeConfig($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode({enabled: true,requireBase: false});
+  $locationProvider.html5Mode({enabled: false,requireBase: false});
   $locationProvider.hashPrefix('');
     $routeProvider
         .when('/', {

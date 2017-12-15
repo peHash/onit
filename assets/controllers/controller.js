@@ -584,7 +584,10 @@ $scope.ost = 0;
 
 app.controller('depositController', function($scope,$routeParams, $location, $http, $window){
 
-$scope.deposit = function() {
+  $scope.transId == false;
+  if ($routeParams.transId) {$scope.transId == true}
+
+  $scope.deposit = function() {
     var config = {
       method: 'POST',
       url: '/api/payment',
