@@ -144,7 +144,7 @@ var walletSchema = new mongoose.Schema({
   message:  String,
   date:  String,
   mobile:  Number, 
-  cardNumber: Number, 
+  cardNumber: String, 
   factorNumber: Number
 });
 
@@ -364,11 +364,11 @@ app.post('/api/cpayment', function(req,res){
 
   if (req.body.status == 1) {
     Wallet.findOne({ transId: req.body.transId}, function(err, wallet) {
-      if (err) return next(err);
+      if (err) return console.log(err);
       wallet = _.extend(wallet, req.body);
-      wallet.save(function(err){
-        if (err) return next(err);
-        res.redirect(`/deposit/${'wallet.transId'}/`);
+      wallet.save(function(err, wallet){
+        if (err) return console.log(err);
+        res.redirect('/deposit/' + req.body.transId);
       })
     })
   } else {

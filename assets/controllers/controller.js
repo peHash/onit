@@ -584,8 +584,8 @@ $scope.ost = 0;
 
 app.controller('depositController', function($scope,$routeParams, $location, $http, $window){
 
-  $scope.transId == false;
-  if ($routeParams.transId) {$scope.transId == true}
+  $scope.transId = false;
+  if ($routeParams.transId) {$scope.transId = $routeParams.transId}
 
   $scope.deposit = function() {
     var config = {
