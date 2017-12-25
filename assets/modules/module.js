@@ -38,7 +38,11 @@ function routeConfig($routeProvider, $locationProvider) {
             templateUrl: 'view/partials/modal-payment.html', 
             controller: 'depositController' 
         })
-        .when('/deposit/:transId', {
+        .when('/deposit/error', {
+            templateUrl: 'view/partials/modal-payment.html',
+            controller: 'depositController'            
+        })
+        .when('/deposit/:transId/amount/:amount', {
             templateUrl: 'view/partials/modal-payment.html',
             controller: 'depositController'
         })
@@ -50,6 +54,44 @@ function routeConfig($routeProvider, $locationProvider) {
             redirectTo: '/' 
         });
 }
+
+app.config(interceptorConfig);
+
+interceptorConfig.$inject = ['$httpProvider'];
+
+function interceptorConfig($httpProvider) {
+
+  $httpProvider.interceptors.push(function ($rootScope, $q, $window, $location) {
+
+    return {
+        request: function(config) {
+          if ($window.localStorage.token) {
+            config.headers.Authorization = 'Bearer ' + $window.localStorage.token;
+          }
+          return config;
+        },
+        responseError: function(response) {
+          if (response.status === 401 || response.status === 403) {
+            $location.path('/');
+          } else if (response.status === 400) {
+                // User Access token has expired 
+                delete $window.localStorage.token;
+                $rootScope.currentUser = null;
+                $rootScope.userLogged = false;
+                $location.path('/');
+          } else if (response.status === 404) {
+                $location.path('/');
+          }
+          return $q.reject(response);
+        }
+      }
+  }
+  );
+}
+
+
+
+
 
 // app.config(function ($routeProvider, $locationProvider, $httpProvider) {
 //     $locationProvider.html5Mode({enabled: true,requireBase: false});

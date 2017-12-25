@@ -18,6 +18,8 @@ var _ = require('lodash');
 var fs = require('fs');
 var formidable = require('formidable');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
+var Q = require('q');
+
 
 var tokenSecret = 'your unique secret';
 var Schema = mongoose.Schema,
@@ -27,9 +29,13 @@ var youtubeFolder = path.join(__dirname, 'public/youtube/videos');
 let Promise = require('bluebird');
 const TelegramBot = require('node-telegram-bot-api');
 const token = '430103329:AAFeFKj6WaqRpyh9CyX4ZSMtOiTEaN6UOAM';
+// const PAYMENT_API = 'a539036b4734cddd43aa8dd61e593e7c';
+const PAYMENT_API = 'test';
+const PAYMENT_URL = 'https://pay.ir/payment/verify';
 const bot = new TelegramBot(token, {polling: true});
 
-bot.on('message', (msg) => {
+
+bot.on('message', (msg) => { //dev
   console.log(msg)
 })
 
@@ -104,19 +110,16 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
   });
 };
 
-var ubs = new Schema({
-  mobile : {type: Number, default: ''},
+var customerSchema = new mongoose.Schema({
+  mobile : {type: String, default: '09121488948'},
   email: { type: String, unique: true, lowercase: true, trim: true , required: true},
   password: { type: String }, 
-  deposits: {type: mongoose.Schema.Types.ObjectId},
-  ballance: [{
-    amount: Number,
-    date: String,
-    msg: String
-  }]
+  deposits: {type: mongoose.Schema.Types.ObjectId, ref: 'Wallet'},
+  balance : {type: Number, default: 0}, 
+  projects : [{type: mongoose.Schema.Types.ObjectId, ref: 'Project'}]
 });
 
-ubs.pre('save', function(next) {
+customerSchema.pre('save', function(next) {
   var user = this;
   if (!user.isModified('password')) return next();
   bcrypt.genSalt(10, function(err, salt) {
@@ -129,7 +132,7 @@ ubs.pre('save', function(next) {
   });
 });
 
-ubs.methods.comparePassword = function(cP, cb) {
+customerSchema.methods.comparePassword = function(cP, cb) {
   bcrypt.compare(cP, this.password, function(err, isMatch) {
     if (err) return cb(err);
     cb(null, isMatch);
@@ -139,7 +142,7 @@ ubs.methods.comparePassword = function(cP, cb) {
 var walletSchema = new mongoose.Schema({
   id: ObjectId,
   transId: Number,
-  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+  userId: {type: mongoose.Schema.Types.ObjectId, ref: 'Customer'},
   amount:  Number,
   message:  String,
   date:  String,
@@ -266,7 +269,7 @@ var Expert = mongoose.model('Expert', expSchema);
 
 var Project = mongoose.model('Project', projectSchema);
 
-var Customer = mongoose.model('Customer', ubs);
+var Customer = mongoose.model('Customer', customerSchema);
 
 var Wallet = mongoose.model('Wallett', walletSchema);
 
@@ -359,16 +362,80 @@ function createJwtToken(user) {
   return jwt.encode(payload, tokenSecret);
 }
 
+function vPayment(wallet) {
 
-app.post('/api/cpayment', function(req,res){
+  var defer = Q.defer();
+  var headers = {
+      'User-Agent':       'Super Onita/0.0.1',
+      'Content-Type':     'application/x-www-form-urlencoded'
+  }
+  // Configure the request
+  var options = {
+      url: PAYMENT_URL,
+      method: 'POST',
+      headers: headers,
+      form: {
+          'api': PAYMENT_API,
+          'transId': wallet.transId
+        }
+  }
+
+  // Start the request
+  request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200 && body) {
+      var amount = JSON.parse(body).amount;
+      Wallet.findOne({ transId: wallet.transId }, function(err, wallet) {
+        console.log(wallet)
+        if (err) return console.log(err);
+        if (wallet) {
+          wallet.amount = amount;
+          wallet.save(function(err, doc){
+            if (err) return console.log(err);
+            defer.resolve(doc);
+          })
+        } else {
+            defer.reject();
+        };
+      });
+    }
+  })
+  return defer.promise;
+}
+
+
+function telegrammer(){
+
+}
+
+
+
+app.post('/api/cpayment' ,function(req,res){
 
   if (req.body.status == 1) {
     Wallet.findOne({ transId: req.body.transId}, function(err, wallet) {
       if (err) return console.log(err);
       wallet = _.extend(wallet, req.body);
-      wallet.save(function(err, wallet){
+      wallet.save(function(err){
         if (err) return console.log(err);
-        res.redirect('/deposit/' + req.body.transId);
+        // vPayment(wallet);
+        vPayment(wallet).then(function(doc){
+          try {
+            Customer.findOne({ _id: wallet.userId }, function(err, customer){
+              if (err) return console.log(err)
+              customer.balance += doc.amount;
+              customer.save(function(err){
+                if (err) return console.log(err);
+                // telegrammer('deposit', Object.assign(customer, wallet));
+                res.redirect('/deposit/'+doc.transId+'/amount/'+doc.amount);
+              })
+            })
+          } catch(err) {
+            res.redirect('/deposit/'+doc.transId+'/amount/000000000');
+            console.log(err);
+          }
+        }, function(err){
+          res.status(200).send({err: 10001, msg: 'An error occured during payment amount verifying'});
+        })
       })
     })
   } else {
@@ -399,7 +466,7 @@ app.post('/api/cpayment', function(req,res){
 })
 
 
-app.post('/api/payment', function(req,res){
+app.post('/api/payment', ensureAuthenticated ,function(req,res){
 
 // Set the headers
 var headers = {
@@ -412,7 +479,7 @@ var options = {
     method: 'POST',
     headers: headers,
     form: {
-        'api': req.body.api,
+        'api': PAYMENT_API,
         'amount': req.body.amount,
         'redirect': req.body.redirect, 
         'mobile': req.body.mobile,
@@ -429,7 +496,8 @@ request(options, function (error, response, body) {
             res.status(200).send({err: 10001, msg: 'factorNumber duplication error !'});
           } else {
             var wall = new Wallet({
-              transId: transId
+              transId: transId, 
+              userId: req.user._id
             });
             wall.save(function(err, wallet){
               if (err) return console.log(err);
@@ -506,18 +574,23 @@ app.post('/api/orders', function(req,res,next){
   });
 })
 
-app.get('/send', function(req,res, next){
-
-  var text = `<a href="http://onita.ir/assets/images/showcase/showcase-1.png">&#8205</a>
-  سلام دوستان عزیزم
-  <em> تازه داره شروع میشه </em>
-  🆔 <a href="http://t.me/onitatestchannel">@onitabot</a> 
-<strong>این کلیپ برای شماست</strong>
-
-`;
+app.post('/telegram/send', ensureAuthenticated , function(req,res, next){
 
 
-  bot.sendAudio('34106450', 'https://storage.backtory.com/onitacdn/elon.mp3' , {title: "اجرای زیبای حضرت ایلان ماسک", performer: "آقا ایلان ماسک (ع)", duration: 300 ,caption: `👻👻👻 سلام دوستان عزیزم 👻👻👻\n http://onita.ir \n از طریق سایت سفراش بدید و از ۲۰٪ تخفیف بهره مند بشید 👆 \n اینم آدرس تلگراممون @OnitaBot 🤙`}).then(function(r){res.send(r)});
+
+
+  var defaultText = 
+              `
+              <a href="http://onita.ir/assets/images/showcase/showcase-1.png">&#8205</a>
+              سلام دوستان عزیزم
+              <em> تازه داره شروع میشه </em>
+              🆔 <a href="http://t.me/onitatestchannel">@onitabot</a> 
+              <strong>این کلیپ برای شماست</strong>
+              `;
+
+
+  // bot.sendAudio('34106450', 'https://storage.backtory.com/onitacdn/elon.mp3' , {title: "اجرای زیبای حضرت ایلان ماسک", performer: "آقا ایلان ماسک (ع)", duration: 300 ,caption: `👻👻👻 سلام دوستان عزیزم 👻👻👻\n http://onita.ir \n از طریق سایت سفراش بدید و از ۲۰٪ تخفیف بهره مند بشید 👆 \n اینم آدرس تلگراممون @OnitaBot 🤙`}).then(function(r){res.send(r)});
+
   // res.send(`http://198.143.181.55:1212/download/${req.params.id}`)
 
   // console.log('got it');
@@ -527,7 +600,7 @@ app.get('/send', function(req,res, next){
   //         res.send(data);
   //         }
   //     );
-  // bot.sendMessage('34106450', text, {parse_mode: "html"}).then(function(r){res.send(r)});
+  bot.sendMessage('34106450', defaultText, {parse_mode: "html"}).then(function(r){res.send(r)});
   // bot.sendPhoto('34106450', "http://onita.ir/assets/images/showcase/showcase-1.png" , {caption: `👻👻👻 سلام دوستان عزیزم 👻👻👻\n http://onita.ir \n از طریق سایت سفراش بدید و از ۲۰٪ تخفیف بهره مند بشید 👆 \n اینم آدرس تلگراممون @OnitaBot 🤙`}).then(function(r){res.send(r)});
   // res.send(req.body)
 })
@@ -594,14 +667,21 @@ app.get('/api/posts', function(req,res,next){
   });
 });
 
+app.get('/auth/balance', function(req,res,next){
+  Customer.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
+    if (user) {
+      res.status(200).send({balance: user.balance ? user.balance : 0});
+    }
+  });
+})
+
 app.post('/auth/signup', function(req, res, next) {
 
   var customer = new Customer({
-    mobile: req.body.tel,
+    mobile: req.body.mobile,
     email: req.body.email.toLowerCase(),
     password: req.body.password
   });
-  customer
   customer.save(function(err) {
     if (err) return next(err);
     res.sendStatus(200);
@@ -618,7 +698,9 @@ app.post('/auth/login', function(req, res, next) {
       var cpUser = {
         _id: user._id,
         email: user.email,
-        password: user.password
+        mobile: user.mobile,
+        password: user.password, 
+        balance: user.balance ? user.balance : 0
       };
       var token = createJwtToken(cpUser);
       res.status(200).send({ token: token });

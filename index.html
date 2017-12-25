@@ -17,7 +17,7 @@
 	<meta name="Resource-type" content="Document" />
 
 	<!-- Required Framework-->
-	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 
 	<!-- Google font & font-awasome-->
 	<link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
@@ -66,15 +66,15 @@
 
 </head>
 <body data-ng-controller="MyController" data-spy="scroll" data-target=".navbar" data-offset="50">
-<div id="main_loader">
+<!-- <div id="main_loader">
 	<div id="loader">
 		<div class="outer_spin"><div class="inner_spin"></div></div>
 	</div>
-</div>
+</div> -->
 <!--=== Navigation menu starts ===-->
 
 
-<nav class="navbar default top-nav-collapse">
+<nav class="navbar default top-nav-collapse" ng-click="testFunction();">
 	<div class="container">
 		<div class="navbar-header float-right">
 			<button type="button" class="navbar-toggle hidden-xs float-left" data-toggle="collapse" data-target="#myNavbar">
@@ -88,7 +88,7 @@
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav pull-left" ng-if="!isUser">
+			<ul class="nav navbar-nav pull-left" ng-if="!userLogged">
 				<li class="active">
 					<a href="#home" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('login');">ورود</a>
 				</li>
@@ -97,36 +97,36 @@
 				</li>
 			</ul>
 			<ul class="nav navbar-nav pull-left">
-				<div style="margin-top:23px;margin-left:50px;" class="btn-group" uib-dropdown is-open="status.isopen" ng-if="isUser">
+				<div style="margin-top:23px;margin-left:50px;" class="btn-group" uib-dropdown is-open="status.isopen" ng-if="userLogged">
 					<button id="profile-btn" type="button" class="btn theme_btn" uib-dropdown-toggle ng-disabled="disabled">
 					<span class="caret"></span> سلام دوست عزیز
 					</button>
 					<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
 					<li role="menuitem"><a href="#"> خوش آمدید </a></li>
 					<li class="divider"></li>
-					<li role="menuitem"><a href="#">تنظیمات</a></li>
-					<li role="menuitem"><a href="/app">سفارشات</a></li>
-					<li role="menuitem"><a href="#">صورت حساب ها</a></li>
-					<li role="menuitem"><a href="#">کیف پول</a></li>
+					<!-- <li role="menuitem"><a href="#">تنظیمات</a></li> -->
+					<!-- <li role="menuitem"><a href="/app">سفارشات</a></li> -->
+					<li role="menuitem"><a href="#">گزارشات مالی</a></li>
+					<li role="menuitem"><a href="/deposit">کیف پول</a></li>
 					<li class="divider"></li>
-					<li role="menuitem"><a href="#">خروج</a></li>
+					<li role="menuitem"><a href="#" ng-click="gn();">خروج</a></li>
 					</ul>
 				</div>
 			</ul>
 		</div>
 	</div>
-	<div class="header-down" ng-if="isUser">
+	<div class="header-down" ng-if="userLogged">
 		<div class="container">
 			<div class="spotlight">
 				<ul class="exchange">
 					<i class="fa fa-money"></i>
 					<span class=""> اعتبار شما </span>
 					<li class="USD">
-						<span class="balanceraw">{{43423234.00 | number}}</span>
+						<span class="balanceraw">{{currentUser.balance | number}}</span>
 					</li>
 				</ul>
 				<div class="header-total">
-					<a href="/cashin" id="take-funds" class="btn deposit-btn">افزایش موجودی <i class="fa fa-sign-in" aria-hidden="true"></i>
+					<a href="/deposit" id="take-funds" class="btn deposit-btn">افزایش موجودی <i class="fa fa-sign-in" aria-hidden="true"></i>
 					<a href="#" id="add-funds" class="btn withdraw-btn">تسویه حساب<i class="fa fa-sign-out" aria-hidden="true"></i></a>
 </a>
 				</div>
@@ -142,11 +142,11 @@
 
 <div ng-view class="ngview">
 
-	<div id="main_loader">
+	<!-- <div id="main_loader">
 		<div id="loader">
 			<div class="outer_spin"><div class="inner_spin"></div></div>
 		</div>
-	</div>
+	</div> -->
 
 </div>
 

@@ -5,7 +5,8 @@
 <section id="payment">
   <div class="row">
       <div class="title">
-          <h2 class="text-center"> <span class="theme_bolder"> پرداخت</span></h2>
+          <h2 class="text-center"> <span class="theme_bolder"> افزایش موجودی 
+          </span></h2>
           <div class="text-center" style="padding: 0 50px;">
               <p>
                   <span class="highlight-blue">اونیتا</span> پلتفرمی برای تسهیل ارتباط بین مترجمین حرفه ای و افرادی است که نیاز ترجمه دارند
@@ -18,7 +19,12 @@
       <style type="text/css">
       </style>
 
-      <div class="add-block">
+      <div class="add-block" ng-if="transAmount">
+        <h2 class="amount"> {{transAmount}} ریال</h2>
+        <p class="add-intro">کیف پول شما شارژ شد</p>
+      </div>
+
+      <div class="add-block" ng-hide="transAmount">
         <h2 class="">You have no cards yet</h2>
         <p class="add-intro">Add a payment card and make a deposit in a few clicks.</p>
         <div class="row">
@@ -47,11 +53,12 @@
         <div class="form-group has-feedback">
             <div class="input-group">
               <span class="input-group-addon">ریال</span>
-              <input type="text" class="form-control input-lg" id="paymentamount" name="payment-amount" ng-model="transId">
+              <input type="text" class="form-control input-lg" id="paymentamount" name="payment-amount" ng-model="amount">
             </div>
             <!-- <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span> -->
         </div>
-        <a href="#" class="btn btn-block btn-lg btn-info" ng-click="deposit();" ng-disabled="transId">پرداخت و افزایش موجودی</a>
+        <a href="#" class="btn btn-block btn-lg btn-info" ng-click="deposit();"
+        >پرداخت و افزایش موجودی</a>
       </div>
 
     </div>

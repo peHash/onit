@@ -12,28 +12,28 @@
 							<span class="element typewriter" typewriter type-speed="200" loop=true loop-delay="1000" custom-style=false cursor=true shell=false messages="sentences" newline=false></span>
 							لذت ببرید
 						</h1>
-						<div class="col-md-7 float-right">
+						<div class="col-md-12 float-right">
 							<ul class="mb50">
 								<li class="list_content">
-									<span class="chk_icon"></span>
+									<!-- <span class="chk_icon"></span> -->
 									<p>
 										اونیتا متمرکز ترین مرکز انجام سفارشات ترجمه آنلاین برای <strong>دانشجو</strong> است
 									</p>
 								</li>
 								<li class="list_content">
-									<span class="chk_icon"></span>
+									<!-- <span class="chk_icon"></span> -->
 									<p>
 										<strong>پروژه های دانشجویی</strong> چیزی بالغ بر ۸۰ ٪ سفارشات روزانه ما را تشکیل می دهد 
 									</p>
 								</li>
 								<li class="list_content">
-									<span class="chk_icon"></span>
+									<!-- <span class="chk_icon"></span> -->
 									<p>
 										تیم ما متشکل از مجرب ترین مترجمین فارغ التحصیل از دانشگاه های <strong>علامه</strong>، <strong>تهران</strong> و <strong>بهشتی</strong> می باشد
 									</p>
 								</li>
 								<li class="list_content">
-									<span class="chk_icon"></span>
+									<!-- <span class="chk_icon"></span> -->
 									<p>
 										<strong>مقالات علمی</strong> در سطح ژورنال های معتبر جهانی، چکیده <strong>پایان نامه</strong> و <strong>کاتالوگ</strong> ابزار آلات صنعتی و ابزار دقیق از دیگر خدمات اونیتا است
 									</p>
@@ -44,13 +44,13 @@
 								<button type="button" class="btn theme_btn" ng-click="openModal('customer');">ثبت پروژه ترجمه</button>
 							</div>
 						</div>
-						<div class="col-sm-5 float-right hidden-xs hidden-sm">
+						<!-- <div class="col-sm-5 float-right hidden-xs hidden-sm">
 							<div class="home_ph">
 								<img class="img-responsive home_slide1" src="assets/images/screen1.png" alt="ثبت سفارش اونیتا بر روی تلگرام" />
 								<img class="img-responsive home_slide2" src="assets/images/screen2.png" alt="Home-Phone Image" />
 								<img class="img-responsive home_slide3"  src="assets/images/screen3.png" alt="Home-Phone Image" />
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</section>
@@ -63,7 +63,7 @@
 <!-- Core_features section ends -->
 
 <!-- Extra_features section starts -->
-<section id="extra_features">
+<section id="extra_features" ng-if="!userLogged">
 	<div class="container">
 		<div class="row rtl">
 			<div class="title">
@@ -106,7 +106,7 @@
 <!-- Extra_features section ends -->
 
 <!-- Amazing_features section starts -->
-<section id="amazing_features">
+<section id="amazing_features" ng-if="!userLogged" ng-hide="true">
 	<div class="container">
 		<div class="row">
 			<div class="title">
@@ -174,65 +174,8 @@
 <!-- Amazing_features section ends -->
 
 
-<!-- Available_app section starts -->
-<section id="available_app"  data-parallax-background class="parallax-img" data-parallax-ratio="0.2" style="background-image: url(assets/images/banner/background-1-cloud.png);">
-	<!-- <div class="bg_layer"></div> -->
-	<div class="container">
-		<div class="row">
-			<div class="title">
-				<h2 class="text-center">هر جا <span class="white_bolder">تلگرام هست ما هستیم</span></h2>
-				<div class="col-sm-12 col-md-6 col-md-offset-3 text-center">
-					<p>
-						هر زمان در هر کجا و با هر دستگاهی می توانید به راحتی سفارش بدید
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-4 text-center apps">
-				<span class="tablet animate_fade_in"></span>
-				<h4>تبلت</h4>
-				<!-- <p>
-					This is Photoshop's version  of Lorem Ipsum. Proin gravida
-				</p> -->
-			</div>
-			<div class="col-sm-4 text-center apps">
-				<span class="pc animate_fade_in"></span>
-				<h4>کامپیوتر</h4>
-				<!-- <p>
-					This is Photoshop's version  of Lorem Ipsum. Proin gravida
-				</p> -->
-			</div>
-			<div class="col-sm-4 text-center apps">
-				<span class="app_phone animate_fade_in"></span>
-				<h4>موبایل</h4>
-				<!-- <p>
-					This is Photoshop's version  of Lorem Ipsum. Proin gravida
-				</p> -->
-			</div>
-		</div>
-	</div>
-</section>
-<!-- Available_app section ends -->
-
-
-<!-- Working section starts -->
-<!-- Working section ends -->
-
-<!-- Screen-shot section starts -->
-<!-- Screen-shot section ends -->
-
-<!-- Counter section starts -->
-<!-- Counter section ends -->
-
-<!-- Team section starts -->
-<!-- Team section ends -->
-
-<!-- People section starts -->
-<!-- People section ends -->
-
 <!-- Pricing section starts -->
-<section id="pricing" style="background-color: white;">
+<section id="pricing" style="background-color: white;" ng-if="!userLogged">
 	<div class="container">
 		<div class="row">
 			<div class="title">
@@ -307,11 +250,69 @@
 </section>
 <!-- Pricing section ends -->
 
+
+<!-- Available_app section starts -->
+<section id="available_app"  data-parallax-background class="parallax-img" data-parallax-ratio="0.2" style="background-image: url(assets/images/banner/background-1-cloud.png);" ng-if="!userLogged">
+	<!-- <div class="bg_layer"></div> -->
+	<div class="container">
+		<div class="row">
+			<div class="title">
+				<h2 class="text-center">هر جا <span class="white_bolder">تلگرام هست ما هستیم</span></h2>
+				<div class="col-sm-12 col-md-6 col-md-offset-3 text-center">
+					<p>
+						هر زمان در هر کجا و با هر دستگاهی می توانید به راحتی سفارش بدید
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 text-center apps">
+				<span class="tablet animate_fade_in"></span>
+				<h4>تبلت</h4>
+				<!-- <p>
+					This is Photoshop's version  of Lorem Ipsum. Proin gravida
+				</p> -->
+			</div>
+			<div class="col-sm-4 text-center apps">
+				<span class="pc animate_fade_in"></span>
+				<h4>کامپیوتر</h4>
+				<!-- <p>
+					This is Photoshop's version  of Lorem Ipsum. Proin gravida
+				</p> -->
+			</div>
+			<div class="col-sm-4 text-center apps">
+				<span class="app_phone animate_fade_in"></span>
+				<h4>موبایل</h4>
+				<!-- <p>
+					This is Photoshop's version  of Lorem Ipsum. Proin gravida
+				</p> -->
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Available_app section ends -->
+
+
+<!-- Working section starts -->
+<!-- Working section ends -->
+
+<!-- Screen-shot section starts -->
+<!-- Screen-shot section ends -->
+
+<!-- Counter section starts -->
+<!-- Counter section ends -->
+
+<!-- Team section starts -->
+<!-- Team section ends -->
+
+<!-- People section starts -->
+<!-- People section ends -->
+
 <!-- Download section starts -->
 <!-- Download section ends -->
 
 <!-- FAQ section starts -->
-<section id="faq" style="background-color: white;">
+<section id="faq" style="background-color: white;" ng-if="!userLogged">
 	<div class="container">
 		<div class="row">
 			<div class="title">

@@ -12,10 +12,10 @@
   </div>
   <div class="row">
     <div class="col-sm-8 col-sm-offset-2" style="direction: ltr;">
-      <form method="post" ng-submit="signup()" name="signupForm">
+      <form method="post" ng-submit="signup(customer)" name="signupForm">
 
          <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
-          <input unique-email class="form-control input-lg" type="email" id="email" name="email" ng-model="email" placeholder="ایمیل" required autofocus>
+          <input unique-email class="form-control input-lg" type="email" id="email" ng-model="customer.email" placeholder="ایمیل" required autofocus>
           <span class="ion-at form-control-feedback"></span>
           <div class="help-block text-danger" ng-if="signupForm.email.$dirty" ng-messages="signupForm.email.$error">
             <!-- <div ng-message="required">وارد کردن ایمیل الزامی است !</div>
@@ -37,7 +37,7 @@
           </div>
         </div> -->
         <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.tel.$invalid && signupForm.tel.$dirty }">
-          <input class="form-control input-lg" type="text" name="tel" ng-model="tel" placeholder="شماره موبایل " required>
+          <input class="form-control input-lg" type="text" ng-model="customer.mobile" placeholder="شماره موبایل " required>
           <span class="ion-android-call form-control-feedback"></span>
           <div class="help-block text-danger" ng-if="signupForm.tel.$dirty" ng-messages="signupForm.tel.$error">
             <!-- <div ng-message="required">شما باید شماره موبایل خود را وارد کنید !</div> -->
@@ -47,7 +47,7 @@
        
 
         <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.password.$invalid && signupForm.password.$dirty }">
-          <input password-strength class="form-control input-lg" type="password" name="password" ng-model="password" placeholder="کلمه عبور " required>
+          <input password-strength class="form-control input-lg" type="password" name="password" ng-model="customer.password" placeholder="کلمه عبور " required>
           <span class="ion-key form-control-feedback"></span>
           <div class="help-block text-danger" ng-if="signupForm.password.$dirty" ng-messages="signupForm.password.$error">
             <!-- <div ng-message="required">وارد کردن کلمه عبور الزامی است .</div> -->
@@ -58,7 +58,7 @@
        <div class="form-group">
         <button type="submit" class="btn btn-block btn-post" style="color: #fff;">ثبت نام</button>
         <p class="text-center text-muted" style="margin-left: 0;margin-top:20px;">قبلا ثبت نام کرده اید ؟</p>
-        <button class="btn btn-block btn-link">وارد شوید </button>
+        <button class="btn btn-block btn-link" ng-click="openLogin();">وارد شوید </button>
        </div>
       </form>
     </div>

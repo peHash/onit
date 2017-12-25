@@ -1,8 +1,8 @@
 
 
-app.controller('MyController', function ($scope,Modernizr,$window, $http, $uibModal,$timeout) {
+app.controller('MyController', function ($scope,$rootScope,Modernizr,$window, $http, $uibModal,$timeout, Auth) {
 
-$scope.isUser = false;
+// $scope.userLogged = false;
 
 $scope.sentences  = ["از تحویل یک روزه", "از مترجمین متخصص", "از قیمت مقرون به صرفه"];
 
@@ -14,6 +14,10 @@ $scope.getOrdersList = getOrdersList;
 
 $scope.init = init;
 
+$scope.gn = goodNight;
+
+$scope.testFunction = testFunction;
+
 init();
 
 function init(){
@@ -21,6 +25,25 @@ function init(){
   getOrdersList();
 
 };
+
+function goodNight() {
+  Auth.logout();
+}
+
+function testFunction(toaster) {
+  config = {
+      method: 'POST',
+      url: '/telegram/send', 
+      data: {
+
+      }
+    }
+    $http(config).then(resolve, reject);
+    function resolve(r) {
+      console.log(r);
+    };
+    function reject(e) {toaster.pop('error', failed.header, failed.body)};
+  }
 
 
 
@@ -51,6 +74,7 @@ function openModal (group) {
 function modalStarter(template,static,controller, size) {
   var modalInstance = $uibModal.open({
     templateUrl: template,
+    scope: $scope,
     // templateUrl : $templateCache.get('signup-modal.html'),
     size: size ? size : 'lg',
     backdrop: static ? static : true,
@@ -252,7 +276,7 @@ function loginController($rootScope, $scope, Auth, toaster, $uibModalInstance, $
     Auth.login({email: $scope.email, password: $scope.password})
     .then(function(data) {
             var data = data.data;
-            toaster.pop('success', 'LOGIN SUCCESS', 'سلام بهترین');
+            toaster.pop('success', 'LOGIN SUCCESS', 'سلام به شما');
             $window.localStorage.token = data.token;
             var payload = JSON.parse($window.atob(data.token.split('.')[1]));
             $rootScope.currentUser = payload.user;
@@ -260,19 +284,27 @@ function loginController($rootScope, $scope, Auth, toaster, $uibModalInstance, $
             $timeout(function() {$uibModalInstance.close();}, 1000);
           },
           (err) => {
-            toaster.pop('error','lOGIN FAILED', err);
+            if (err.status == 401) { //user dsnt exists
+              toaster.pop('error','lOGIN FAILED', 'متاسفانه نام کاربری یا کلمه عبور را اشتباه زدید');  
+            } else {
+              toaster.pop('error','lOGIN FAILED');
+            }
             delete $window.localStorage.token;
           });
+  }
+  $scope.openSignup = function() {
+    $uibModalInstance.dismiss();
+    $scope.openModal('signup');
   }
 }
 
 function signUpController($scope, Auth, toaster, $uibModalInstance){
 
-  $scope.signup = function() {
+  $scope.signup = function(customer) {
       Auth.signup({
-        email: $scope.email,
-        mobile: $scope.tel,
-        password: $scope.password
+        email: customer.email,
+        mobile: customer.mobile,
+        password: customer.password
       })
       .then(function() {
             toaster.pop('success','SIGNUP SUCCESS', 'خوش اومدی بهترین');
@@ -282,6 +314,13 @@ function signUpController($scope, Auth, toaster, $uibModalInstance){
             toaster.pop('error','SIGNUP FAILED', err);
           });
     };
+
+  $scope.openLogin = function() {
+    $uibModalInstance.close();
+    $scope.openModal('login');
+    
+
+  }
 }
 
 function expertsListController($scope, $http) {
@@ -585,7 +624,12 @@ $scope.ost = 0;
 app.controller('depositController', function($scope,$routeParams, $location, $http, $window){
 
   $scope.transId = false;
-  if ($routeParams.transId) {$scope.transId = $routeParams.transId}
+  if ($routeParams.transId && $routeParams.amount) {
+    $scope.transId = $routeParams.transId;
+    $scope.transAmount = $routeParams.amount;
+  } else if ($routeParams.error) {
+    $scope.transError = true;
+  }
 
   $scope.deposit = function() {
     var config = {
@@ -595,7 +639,7 @@ app.controller('depositController', function($scope,$routeParams, $location, $ht
         'url': 'https://pay.ir/payment/send',
         'api': 'test',
         'amount': parseInt($scope.amount),
-        'redirect': 'http://198.143.181.86:1212/api/cpayment', 
+        'redirect': 'http://onita.ir/api/cpayment', 
         'mobile': parseInt(09355520208),  
         'factorNumber': Math.random()*(Math.pow(10,15)).toString()
       }

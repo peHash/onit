@@ -1,5 +1,5 @@
-div[ng-view] > section {
-    padding-top: 130px !important;
+.ngview section:first-child, .ngview section:last-child {
+    padding-top: 160px !important;
 }
 
 nav {
@@ -96,6 +96,11 @@ li.form-step {
   font-weight: 200;
   color: #191919;
 }
+.add-block .amount {
+    color: #01CC93;
+    font-size: 22px;
+    font-weight: bold;
+}
 .add-block .add-intro {
   margin-top: 0;
   color: #858687;
@@ -179,7 +184,7 @@ footer {margin-top: 60px;}
 }
 .list_content {
     padding-left: 0 !important;
-    padding-right: 2.3em;
+    padding-right: 0 !important;
 }
 
 .list_content span {
@@ -188,13 +193,17 @@ footer {margin-top: 60px;}
     top: 11px;
 }
 
-.list_content p {
+.list_content .chk_icon.l{
+    left: 0;
+}
+
+#home .list_content p {
     direction: rtl;
-    text-align: right;
+    text-align: center;
 }
 
 #home h1 { 
-    text-align: right;
+    text-align: center;
     direction: rtl;
 }
 
@@ -349,7 +358,7 @@ h5 {
     position: relative;
     padding-bottom: 30px;
     margin-top: 0;
-    margin-bottom: 30px;
+    margin-bottom: 0px;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -655,6 +664,14 @@ header {
 #home {
     padding: 120px 0;
 }
+
+#home .btn-groups {
+    text-align: center;
+}
+
+#home ul , #home li {
+    text-align: center;
+}
 #home h1 {
     font-size: 50px;
     line-height: 1.4;
@@ -743,6 +760,7 @@ header {
     transform: rotate(25deg);
 }
 .list_content {
+    text-align: center;
     font-size: 18px;
     list-style-type: none;
     margin-bottom: 20px;
