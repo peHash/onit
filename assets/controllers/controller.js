@@ -24,6 +24,10 @@ function init(){
   // getExpertsList();
   getOrdersList();
 
+  if ($window.localStorage.balance) {
+    $rootScope.currentUser.balance = $window.localStorage.balance;
+  }
+
 };
 
 function goodNight() {
@@ -193,11 +197,11 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
 
   $scope.orderSubmit = function(project) {
       
-    // $scope.upload($scope.files);
-    console.log($scope.files)
-    // angular.forEach($scope.fileNames, function(value, key) {
-    //   dataFileNames.push(value['name']);
-    // });
+    $scope.upload($scope.files);
+    // console.log($scope.files)
+    angular.forEach($scope.fileNames, function(value, key) {
+      dataFileNames.push(value['name']);
+    });
     
     // config = {
     //   method: 'POST',
@@ -213,7 +217,7 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
     // }
     config = {
       method: 'POST',
-      url: 'http://198.143.181.55:1212/sendDocument', 
+      url: 'http://onita.ir/sendDocument', 
       data: {
         chat_id: '34106450',
         projectName: project.name,
@@ -223,7 +227,7 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
         reCaptcha: project.recaptcha
       }
     }
-    // $http(config).then(resolve, reject);
+    $http(config).then(resolve, reject);
     function resolve(r) {
       toaster.pop('success', succ.header , succ.body)
       $timeout(function() {$uibModalInstance.close();}, 3000);
@@ -243,7 +247,7 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
               if (!file.$error) {
                 $scope.uploading = 'uploading'
                 Upload.upload({
-                    url: 'http://198.143.181.55:1212/api/uploadDocs',
+                    url: 'http://onita.ir/api/uploadDocs',
                     data: {
                       username: 'mE',
                       file: file  
@@ -640,7 +644,6 @@ app.controller('depositController', function($scope,$routeParams, $location, $ht
         'api': 'test',
         'amount': parseInt($scope.amount),
         'redirect': 'http://onita.ir/api/cpayment', 
-        'mobile': parseInt(09355520208),  
         'factorNumber': Math.random()*(Math.pow(10,15)).toString()
       }
     }

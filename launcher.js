@@ -403,7 +403,29 @@ function vPayment(wallet) {
 }
 
 
-function telegrammer(){
+function telegrammer(reason, customer, amount){
+  
+  switch (reason) {
+    case 'deposit':
+      defaultText = depositText;
+      break;
+  }
+
+  var depositText = 
+              `
+              <a href="http://onita.ir/assets/images/200_deposit.png">&#8205</a>
+              <strong>افزایش موجودی</strong>
+              \n\n
+              <code> مشتری ${customer.mobile}  </code>
+              مبلغ ${amount} به حساب خود واریز کرد
+              \n\n
+              آخرین موجودی حساب ${customer.balance}
+              \n\n
+              🆔 <a href="http://t.me/onitatestchannel">@onitabot</a> 
+              `;
+
+
+  bot.sendMessage('34106450', depositText, {parse_mode: "html"});
 
 }
 
@@ -425,7 +447,7 @@ app.post('/api/cpayment' ,function(req,res){
               customer.balance += doc.amount;
               customer.save(function(err){
                 if (err) return console.log(err);
-                // telegrammer('deposit', Object.assign(customer, wallet));
+                telegrammer('deposit', customer, doc.amount);
                 res.redirect('/deposit/'+doc.transId+'/amount/'+doc.amount);
               })
             })
@@ -667,8 +689,8 @@ app.get('/api/posts', function(req,res,next){
   });
 });
 
-app.get('/auth/balance', function(req,res,next){
-  Customer.findOne({ email: req.body.email.toLowerCase() }, function(err, user) {
+app.get('/auth/balance', ensureAuthenticated , function(req,res,next){
+  Customer.findOne({ email: req.user.email.toLowerCase() }, function(err, user) {
     if (user) {
       res.status(200).send({balance: user.balance ? user.balance : 0});
     }

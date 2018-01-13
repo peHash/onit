@@ -36,7 +36,7 @@ angular.module('onitaApp')
       authUser: authUser,
 
       getBalance: function(){
-        return $http.get('/auth/getBalance');
+        return $http.get('/auth/balance');
       },
       login: function(user) {
         $location.path('/app');
@@ -48,6 +48,7 @@ angular.module('onitaApp')
       logout: function() {
         try {
           delete $window.localStorage.token;
+          delete $window.localStorage.balance;
           $rootScope.currentUser = null;
           $rootScope.userLogged = false;
         }

@@ -44,7 +44,24 @@ function routeConfig($routeProvider, $locationProvider) {
         })
         .when('/deposit/:transId/amount/:amount', {
             templateUrl: 'view/partials/modal-payment.html',
-            controller: 'depositController'
+            controller: 'depositController',
+            resolve: {
+                    balance: function($q, Auth, $window, $rootScope){
+                        var delay = $q.defer();
+                        Auth.getBalance()
+                          .then(function(data) {
+                                  var data = data.data;
+                                  $window.localStorage.balance = data.balance;
+                                  $rootScope.currentUser.balance = data.balance;
+                                  delay.resolve(data);
+                                },
+                                (err) => {
+                                  console.log(err);
+                                  delay.reject();
+                                });
+                        return delay.promise;
+                    }
+                }
         })
         .when('/cashin', { 
             templateUrl: 'view/landing.html', 
