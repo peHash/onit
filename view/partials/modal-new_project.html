@@ -82,7 +82,7 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                                 <div ngf-drop ngf-select ng-model="files" class="drop-box" 
                                      ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" ngf-max-size="20MB"
                                      accept="image/*,application/pdf" 
-                                     ngf-pattern="'image/*,application/pdf'">
+                                     ngf-pattern="'image/*,application/pdf'" ngf-select="uploadFiles($files)" multiple="multiple">
                                      <p ng-hide="uploading">
                                      فایل های خود را بارگزاری نمایید 
                                      </p>

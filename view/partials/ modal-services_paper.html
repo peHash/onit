@@ -1,0 +1,43 @@
+<style>
+#services-info p {font-size: 14px;}
+[class^='col-'] {float:right}
+.col-sm-offset-2 {margin-right: 16.66666667%; margin-left: 0;}
+#e_mail , #tel {direction:ltr;}
+.description p {font-size: 14px;}
+.highlight-blue {color:#0e7ae8;}
+.checkbox p {padding-right: 20px; font-size: 14px;}
+.checkbox p > input[type=checkbox] {margin-right: -20px;margin-left: 0;margin-top: 8px;}
+</style>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left'}"></toaster-container>
+<section id="contactus">
+	<div class="row">
+		<div class="title">
+			<h2 class="text-center">فرم <span class="theme_bolder">همکاری</span></h2>
+			<div class="text-center" style="padding: 0 50px;">
+				<p>
+					<span class="highlight-blue">اونیتا</span> پلتفرمی برای تسهیل ارتباط بین مترجمین حرفه ای و افرادی است که نیاز ترجمه دارند
+				</p>
+			</div>
+		</div>
+	</div>
+	<div id="services-info" class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+			<form class="form-horizontal" style="direction: rtl;">
+				<div class="form-group">
+					<div class="col-sm-12 description">
+						<textarea class="form-control" rows="4" cols="50" placeholder="توضیحاتی درباره خودتان (سابقه کاری، رزومه ، زمینه های تخصص ترجمه ، ...)" aria-describedby="helpBlock" ng-model="user.resume"></textarea>
+						<p class="help-block">
+						بعد از ارسال این فرم همکاران ما در کمتر از چند ساعت با شما تماس خواهند گرفت
+						</p>	
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 text-center mb30">
+						<button class="btn theme_btn" ng-click="submitForm(user)">ارسال کن</button>
+						<button class="btn btn-lg btn-link " ng-click="cancel()"> انصراف </button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>

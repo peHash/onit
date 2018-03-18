@@ -1,3 +1,7 @@
+#services {}
+#services > ul {
+    margin-right: 15% !important;
+}
 .ngview section:first-child, .ngview section:last-child {
     padding-top: 160px !important;
 }

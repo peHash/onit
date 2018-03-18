@@ -55,22 +55,32 @@ function testFunction(toaster) {
 function openModal (group) {
   switch (group){
     case 'translator':   
-      modalStarter('view/partials/modal-contactus.html', 'false', contactUsController);
-      break;
+		modalStarter('view/partials/modal-contactus.html', 'false', contactUsController);
+		break;
     case 'customer':
-      modalStarter('view/partials/modal-new_project.html', 'false', newProjectController);
-      break;
+		modalStarter('view/partials/modal-new_project.html', 'false', newProjectController);
+		break;
     case 'experts': 
-      modalStarter('view/partials/modal-experts_list.html', 'false', expertsListController);
-      break;
+		modalStarter('view/partials/modal-experts_list.html', 'false', expertsListController);
+		break;
     case 'login':
-      modalStarter('view/partials/modal-login.html', 'false', loginController);
-      break;
+		modalStarter('view/partials/modal-login.html', 'false', loginController);
+		break;
     case 'signup':
-      modalStarter('view/partials/modal-signup.html', 'false', signUpController);
-      break;
+		modalStarter('view/partials/modal-signup.html', 'false', signUpController);
+		break;
     case 'payment':
-      modalStarter('view/partials/modal-payment.html', 'false', paymentController, 'lg');
+		modalStarter('view/partials/modal-payment.html', 'false', paymentController);
+		break;
+  	case 's_unofficial':
+  		modalStarter('view/partials/modal-services_paper.html', 'false', servicesController);
+  		break;
+	case 's_official':
+		modalStarter('view/partials/modal-services_of.html', 'false', servicesController);
+		break;
+	case 's_quote':
+		modalStarter('view/partials/modal-services_quotation.html', 'false', servicesController);
+		break;
   }
 }
 
@@ -202,19 +212,7 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
     angular.forEach($scope.fileNames, function(value, key) {
       dataFileNames.push(value['name']);
     });
-    
-    // config = {
-    //   method: 'POST',
-    //   url: 'http://198.143.181.55:1212/api/orders', 
-    //   data: {
-    //     projectCat: project.cat,
-    //     projectName: project.name,
-    //     projectDesc: project.desc,
-    //     username: 'order.username',
-    //     fileName: dataFileNames,
-    //     reCaptcha: project.recaptcha
-    //   }
-    // }
+   
     config = {
       method: 'POST',
       url: 'http://onita.ir/sendDocument', 
@@ -239,42 +237,49 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
     if (($scope.fileNames.length || $scope.files && $scope.files.length) > 2 ) return ;
     });
 
-  $scope.upload = function(files) {
-
-    if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-              var file = files[i];
-              if (!file.$error) {
-                $scope.uploading = 'uploading'
-                Upload.upload({
-                    url: 'http://onita.ir/api/uploadDocs',
-                    data: {
-                      username: 'mE',
-                      file: file  
-                    }
-                }).then(function (resp) {
-                    $timeout(function() {
-                      console.log(resp)
-                        // $scope.log = 'file: ' +
-                        // resp.config.data.file.name +
-                        // ', Response: ' + JSON.stringify(resp.data) +
-                        // '\n' + $scope.log;
-                        // console.log(resp);
-                        $scope.fileNames.push(resp.data.fileName);
-                    });
-                }, function(err) {console.log(err)}, function (evt) {
-                    var progressPercentage = parseInt(100.0 *
-                        evt.loaded / evt.total);
-                    $scope.fileProgress = progressPercentage;
-                });
-              }
-            }
-            $scope.uploading = false;
-        }
-  };
 }
 
+function servicesController($scope, toaster, $http, $uibModalInstance) {
+// Analytics.trackPage('/contact-us', 'Expert Acquisition');
+
+}
+  
+
 function loginController($rootScope, $scope, Auth, toaster, $uibModalInstance, $timeout) {
+
+	$scope.uploadFiles = function(files) {
+
+	    if (files && files.length) {
+	            for (var i = 0; i < files.length; i++) {
+	              var file = files[i];
+	              if (!file.$error) {
+	                $scope.uploading = 'uploading'
+	                Upload.upload({
+	                    url: 'http://onita.ir/api/uploadDocs',
+	                    data: {
+	                      username: 'mE',
+	                      file: file  
+	                    }
+	                }).then(function (resp) {
+	                    $timeout(function() {
+	                      console.log(resp)
+	                        // $scope.log = 'file: ' +
+	                        // resp.config.data.file.name +
+	                        // ', Response: ' + JSON.stringify(resp.data) +
+	                        // '\n' + $scope.log;
+	                        // console.log(resp);
+	                        $scope.fileNames.push(resp.data.fileName);
+	                    });
+	                }, function(err) {console.log(err)}, function (evt) {
+	                    var progressPercentage = parseInt(100.0 *
+	                        evt.loaded / evt.total);
+	                    $scope.fileProgress = progressPercentage;
+	                });
+	              }
+	            }
+	            $scope.uploading = false;
+	        }
+  	};
 
   $scope.login = function() {
     Auth.login({email: $scope.email, password: $scope.password})

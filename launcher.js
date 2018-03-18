@@ -11,7 +11,7 @@ var moment = require('moment');
 var async = require('async');
 var request = require('request');
 var xml2js = require('xml2js');
-// var agenda = require('agenda')({ db: { address: 'localhost:27017/giga', collection: 'agendaGiga' } });
+var agenda = require('agenda')({ db: { address: 'localhost:27017/agenda', collection: 'onitAgenda' } , processEvery: '10 seconds'});
 var sugar = require('sugar');
 var nodemailer = require('nodemailer');
 var _ = require('lodash');
@@ -36,8 +36,32 @@ const bot = new TelegramBot(token, {polling: true});
 
 
 bot.on('message', (msg) => { //dev
+  if (msg.from.id == 34106450) {
+    if (msg.reply_to_message && msg.reply_to_message.forward_from) {
+      bot.sendMessage(msg.reply_to_message.forward_from.id, msg.text);
+    }
+  } 
+  else {
+      bot.forwardMessage(34106450, msg.chat.id, msg.message_id);
+    }
+  
   console.log(msg)
 })
+
+// agenda.define('send project auto', function(){
+//   telegrammer('project', {mobile: '09355520208'});
+// })
+
+// agenda.on('ready', function(){
+//   // agenda.every('20 seconds', 'send project auto');
+
+//   // agenda.start();
+
+//   var repeater = agenda.create('send project auto');
+//   repeater.repeatEvery('20 seconds').save();
+//   agenda.start();
+
+// })
 
 
 
@@ -404,10 +428,15 @@ function vPayment(wallet) {
 
 
 function telegrammer(reason, customer, amount){
+
+  var defaultText
   
   switch (reason) {
     case 'deposit':
       defaultText = depositText;
+      break;
+    case 'project':
+      defaultText = projectText;
       break;
   }
 
@@ -424,8 +453,20 @@ function telegrammer(reason, customer, amount){
               🆔 <a href="http://t.me/onitatestchannel">@onitabot</a> 
               `;
 
+  var projectText = 
+              `
+              <strong>ثبت پروژه جدید</strong>
+              \n
+              <code> مشتری ${customer.mobile}  </code>
+              درخواست پروژه جدید ثبت کرده
+              \n
+              لطفا رسیدگی گردد !
+              \n
+              🆔 <a href="http://t.me/tele_job">@tele_job</a> 
+              `;
 
-  bot.sendMessage('34106450', depositText, {parse_mode: "html"});
+
+  bot.sendMessage('34106450', projectText , {parse_mode: "html"});
 
 }
 

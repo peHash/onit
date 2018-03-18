@@ -113,6 +113,37 @@
 					</ul>
 				</div>
 			</ul>
+			<div class="collapse navbar-collapse" id="services">
+				<ul class="nav navbar-nav pull-right">
+					<li>
+						<a href="#" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('customer');">سفارش ترجمه</a>
+					</li>
+					<li>
+						<a href="#" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('s_unofficial');">ترجمه تخصصی</a>
+					</li>
+					<li class="active">
+						<a href="#paper" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('s_official');">ترجمه اسناد رسمی</a>
+					</li>
+					<li>
+						<a href="#" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('s_quote');">قیمت ترجمه</a>
+					</li>
+				</ul>
+				<!-- <ul class="nav navbar-nav pull-left">
+					<div style="margin-top:23px;margin-left:50px;" class="btn-group" uib-dropdown is-open="status.isopen" ng-if="userLogged">
+						<button id="profile-btn" type="button" class="btn theme_btn" uib-dropdown-toggle ng-disabled="disabled">
+						<span class="caret"></span> سلام دوست عزیز
+						</button>
+						<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+						<li role="menuitem"><a href="#"> خوش آمدید </a></li>
+						<li class="divider"></li>
+						<li role="menuitem"><a href="#">گزارشات مالی</a></li>
+						<li role="menuitem"><a href="/deposit">کیف پول</a></li>
+						<li class="divider"></li>
+						<li role="menuitem"><a href="#" ng-click="gn();">خروج</a></li>
+						</ul>
+					</div>
+				</ul> -->
+			</div>
 		</div>
 	</div>
 	<div class="header-down" ng-if="userLogged">
