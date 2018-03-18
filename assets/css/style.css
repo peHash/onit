@@ -106,11 +106,33 @@ li.form-step {
     font-weight: bold;
     direction: rtl;
 }
-.add-block .add-intro {
+.add-intro {
   margin-top: 0;
   color: #858687;
   text-align: center;
 }
+#services-info p {
+    font-size: 14px;
+    letter-spacing: 1px;
+    }
+
+#services-info .title-info {
+    font-size: 16px;
+    color: #333;
+    text-align: right;
+    margin-bottom: 13px;
+}
+#services-info img {
+    display: inline-block;
+    max-width: 180px;
+    padding: 24px;
+    float: right;
+}
+.aligncenter {
+    display: block;
+    margin: 0 auto 30px;
+}
+
 .add-block .row {
   margin-top: 30px;
 }
@@ -637,7 +659,7 @@ header {
 
 .navbar-nav>li>a::before {
     position: absolute;
-    bottom:-4px;
+    bottom:-2px;
     left: 0;
     right: 0;
     text-align: center;
@@ -645,7 +667,7 @@ header {
     padding: 10px 0 15px;
     max-width: 0;
     width:0;
-    border-bottom: 4px solid #fff;
+    border-bottom: 2px solid #fff;
     color: #fff;
     content: '';
     -webkit-transition: all ease-in 0.3s;
