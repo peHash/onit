@@ -43,8 +43,58 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                         <p>
         موضوع پروژه خود را مشخص کنید
                         </p>
-                            <select id="ordercategory" name="" class="form-control" ng-model="project.cat" ng-options="option.value for option in categories">
-                            </select>
+                            <!-- <select id="ordercategory" name="" class="form-control" ng-model="project.cat" ng-options="option.value for option in categories">
+                            </select> -->
+                            <select class="form-control bs-select" name="field">
+
+                                    <option value="32,0">عمومی</option>
+                                    <option value="23,0">اقتصاد</option>
+                                    <option value="26,0">برق و الکترونیک</option>
+                                    <optgroup label="پزشکی">
+                                        <option value="8,0">پزشکی</option>
+                                        <option value="8,100">دندانپزشکی</option>
+                                        <option value="8,101">پرستاری</option>
+                                        <option value="8,103">دامپزشکی</option>
+                                        <option value="8,105">داروسازی</option>
+                                    </optgroup>
+                                    <option value="41,0">تاریخ</option>
+                                    <option value="42,0">حسابداری و مالی</option>
+                                    <option value="9,0">حقوق</option>
+                                    <option value="51,0">خبر و گزارش های ژورنالیستی</option>
+                                    <option value="52,0">رزومه و انگیزه نامه</option>
+                                    <option value="44,0">رمان و داستان</option>
+                                    <option value="10,0">روان شناسی</option>
+                                    <option value="14,0">ریاضی، فیزیک و آمار</option>
+                                    <option value="29,0">زمین شناسی و معدن</option>
+                                    <option value="35,0">زیرنویس فیلم سینمایی و سریال</option>
+                                    <option value="21,0">زیست شناسی</option>
+                                    <option value="38,0">سیاسی و روابط بین الملل</option>
+                                    <option value="11,0">شیمی</option>
+                                    <option value="45,0">صنایع غذایی</option>
+                                    <option value="13,0">علوم اجتماعی و جامعه شناسی</option>
+                                    <option value="15,0">عمران</option>
+                                    <option value="28,0">فلسفه</option>
+                                    <option value="33,0">قرارداد و اسناد تجاری</option>
+                                    <option value="16,0">کامپیوتر و شبکه</option>
+                                    <option value="37,0">کشاورزی</option>
+                                    <option value="47,0">گردشگری</option>
+                                    <option value="46,0">گیم، اینترنت و گجت</option>
+                                    <option value="34,0">متالورژی و مواد</option>
+                                    <option value="22,0">متون ادبی و شعر</option>
+                                    <option value="17,0">محیط زیست و منابع طبیعی</option>
+                                    <option value="18,0">مدیریت و فناوری اطلاعات</option>
+                                    <option value="30,0">معارف اسلامی و الهیات</option>
+                                    <option value="40,0">معماری و شهرسازی</option>
+                                    <option value="19,0">مکانیک</option>
+                                    <option value="50,0">مهندسی پزشکی</option>
+                                    <option value="49,0">مهندسی شیمی</option>
+                                    <option value="27,0">مهندسی صنایع</option>
+                                    <option value="48,0">نظامی</option>
+                                    <option value="39,0">نفت ، گاز و پتروشیمی</option>
+                                    <option value="25,0">ورزشی و تربیت بدنی</option>
+                                    <option value="20,0">هنر</option>
+                                    <option value="43,0">هوافضا</option>
+                                </select>
                     </div>
                     <div class="col-sm-12">
                         <p>
@@ -91,57 +141,59 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                                 <div ngf-no-file-drop>
                                     <p>لطفا از اینترنت اکسپلورر استفاده نکنید،‌ ممنون :)</p>
                                 </div>
-                                <div class="onita-collection">
-                                    <div class="collection-elements" ng-if="!fileNames[0].file">
-                                        <div class="collection-item text-center">
-                                            <div class="collection-item-preview">
-                                                <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
-                                                <div class="collection-item-overlay"></div>
-                                                <div class="collection-item-info">
-                                                    <div class="file-info">
-                                                        <span name="file-size">{{fileNames[0].size}}</span>
-                                                        <span name="file-type">{{fileNames[0].type}}</span>
+                                <div id="project_docs" class="" ng-show="fileNames[0]">
+                                    <div class="onita-collection">
+                                        <div class="collection-elements" ng-if="!fileNames[0].file">
+                                            <div class="collection-item text-center">
+                                                <div class="collection-item-preview">
+                                                    <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
+                                                    <div class="collection-item-overlay"></div>
+                                                    <div class="collection-item-info">
+                                                        <div class="file-info">
+                                                            <span name="file-size">{{fileNames[0].size}}</span>
+                                                            <span name="file-type">{{fileNames[0].type}}</span>
+                                                        </div>
                                                     </div>
+                                                    <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
                                                 </div>
-                                                <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
+                                                <div class="collection-item-name">{{fileNames[0].name}}</div>
                                             </div>
-                                            <div class="collection-item-name">{{fileNames[0].name}}</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="onita-collection">
-                                    <div class="collection-elements" ng-if="!fileNames[1].file">
-                                        <div class="collection-item text-center">
-                                            <div class="collection-item-preview">
-                                                <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
-                                                <div class="collection-item-overlay"></div>
-                                                <div class="collection-item-info">
-                                                    <div class="file-info">
-                                                        <span name="file-size">{{fileNames[1].size}}</span>
-                                                        <span name="file-type">{{fileNames[2].type}}</span>
+                                    <div class="onita-collection">
+                                        <div class="collection-elements" ng-if="!fileNames[1].file">
+                                            <div class="collection-item text-center">
+                                                <div class="collection-item-preview">
+                                                    <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
+                                                    <div class="collection-item-overlay"></div>
+                                                    <div class="collection-item-info">
+                                                        <div class="file-info">
+                                                            <span name="file-size">{{fileNames[1].size}}</span>
+                                                            <span name="file-type">{{fileNames[1].type}}</span>
+                                                        </div>
                                                     </div>
+                                                    <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
                                                 </div>
-                                                <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
+                                                <div class="collection-item-name">{{fileNames[1].name}}</div>
                                             </div>
-                                            <div class="collection-item-name">{{fileNames[1].name}}</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="onita-collection">
-                                    <div class="collection-elements" ng-if="!fileNames[2].file">
-                                        <div class="collection-item text-center">
-                                            <div class="collection-item-preview">
-                                                <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
-                                                <div class="collection-item-overlay"></div>
-                                                <div class="collection-item-info">
-                                                    <div class="file-info">
-                                                        <span name="file-size">{{fileNames[2].size}}</span>
-                                                        <span name="file-type">{{fileNames[2].type}}</span>
+                                    <div class="onita-collection">
+                                        <div class="collection-elements" ng-if="!fileNames[2].file">
+                                            <div class="collection-item text-center">
+                                                <div class="collection-item-preview">
+                                                    <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
+                                                    <div class="collection-item-overlay"></div>
+                                                    <div class="collection-item-info">
+                                                        <div class="file-info">
+                                                            <span name="file-size">{{fileNames[2].size}}</span>
+                                                            <span name="file-type">{{fileNames[2].type}}</span>
+                                                        </div>
                                                     </div>
+                                                    <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
                                                 </div>
-                                                <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
+                                                <div class="collection-item-name">{{fileNames[2].name}}</div>
                                             </div>
-                                            <div class="collection-item-name">{{fileNames[2].name}}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +216,7 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                     <div class="col-sm-12 text-center mb30">
                         <div id="recaptcha" vc-recaptcha key="'6LdD7iUUAAAAAMdzX8UuKlRECBeKtYOoRwAI7d2T'" ng-model="project.recaptcha" size="normal" lang="fa" style="margin-bottom: 30px;"></div>
                         <button class="btn theme_btn" ng-click="orderSubmit(project)">ثبت سفارش</button>
-                        <button class="btn btn-lg btn-link " ng-click="cancel()"> انصراف </button>
+                        <button class="btn btn-lg btn-discard " ng-click="cancel()"> کنسل </button>
                     </div>
                 </div>
             </form>

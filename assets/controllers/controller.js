@@ -72,15 +72,24 @@ function openModal (group) {
     case 'payment':
 		modalStarter('view/partials/modal-payment.html', 'false', paymentController);
 		break;
-  	case 's_unofficial':
+  	case 's_unofficial_paper':
   		modalStarter('view/partials/modal-services_paper.html', 'false', servicesController);
   		break;
-	case 's_official':
-		modalStarter('view/partials/modal-services_of.html', 'false', servicesController);
-		break;
-	case 's_quote':
-		modalStarter('view/partials/modal-services_quotation.html', 'false', servicesController);
-		break;
+    case 's_unofficial_content':
+      modalStarter('view/partials/modal-services_content.html', 'false', servicesController);
+      break;
+    case 's_unofficial_book':
+      modalStarter('view/partials/modal-services_book.html', 'false', servicesController);
+      break;
+    case 's_unofficial_subtitle':
+      modalStarter('view/partials/modal-services_subtitle.html', 'false', servicesController);
+      break;
+  	case 's_official':
+  		modalStarter('view/partials/modal-services_of.html', 'false', servicesController);
+  		break;
+  	case 's_quote':
+  		modalStarter('view/partials/modal-services_quotation.html', 'false', servicesController);
+  		break;
   }
 }
 
@@ -166,6 +175,7 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
   // Analytics.trackPage('/new-project');
 
   $scope.dt = new Date();
+  $scope.fileNames = [{}, {}, {}]
 
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];

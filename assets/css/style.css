@@ -2,6 +2,7 @@
 #services > ul {
     margin-right: 15% !important;
 }
+
 .ngview section:first-child, .ngview section:last-child {
     padding-top: 160px !important;
 }
@@ -89,7 +90,7 @@ li.form-step {
 .add-block {
   background: #EEF9FD;
   padding: 0 40px 20px;
-  margin: -60px 0 30px;
+  /*margin: -60px 0 30px;*/
 }
 .add-block h2 {
   text-align: center;
@@ -121,12 +122,19 @@ li.form-step {
     color: #333;
     text-align: right;
     margin-bottom: 13px;
+    font-weight: bold;
 }
 #services-info img {
     display: inline-block;
     max-width: 180px;
     padding: 24px;
     float: right;
+}
+#services-info .add-block {
+    background: #EEF9FD;
+    font-size: 15px;
+    text-align: center;
+    padding: 20px;
 }
 .aligncenter {
     display: block;
@@ -159,6 +167,12 @@ li.form-step {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+
+.btn-discard {
+    color: #666;
+    font-size: 16px;
+}
+
 .btn.btn-info {
   color: #fff;
   background: #4FC0E8;

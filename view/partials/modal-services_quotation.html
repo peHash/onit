@@ -1,0 +1,176 @@
+<style>
+    [class^='col-'] {
+        float: right
+    }
+    
+    .col-sm-offset-2 {
+        margin-right: 16.66666667%;
+        margin-left: 0;
+    }
+    
+    #e_mail,
+    #tel {
+        direction: ltr;
+    }
+    
+    .description p {
+        font-size: 14px;
+    }
+    
+    .highlight-blue {
+        color: #0e7ae8;
+    }
+    
+    .checkbox p {
+        padding-right: 20px;
+        font-size: 14px;
+    }
+    
+    .checkbox p > input[type=checkbox] {
+        margin-right: -20px;
+        margin-left: 0;
+        margin-top: 8px;
+    }
+</style>
+<toaster-container toaster-options="{'position-class': 'toast-bottom-left'}"></toaster-container>
+<section id="s_unofficial">
+    <div class="row">
+        <div class="title">
+            <h2 class="text-center">برآورد <span class="theme_bolder">قیمت</span></h2>
+            <div class="text-center" style="padding: 0 50px;">
+                <p>
+                    <span class="highlight-blue">اونیتا</span> پلتفرمی برای تسهیل ارتباط بین مترجمین حرفه ای و افرادی است که نیاز ترجمه دارند
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="services-info" class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <form class="form-horizontal" style="direction: rtl;">
+                <div class="form-group">
+                    <div class="col-sm-12 description">
+                        <div class="col-sm-12">
+                        	<div class="form-group">
+	                            <div class="add-block">
+	                                از این ابزار می توانید برای برآورد قیمت سفارش ترجمه خود استفاده نمایید.
+	                            </div>
+                        	</div>
+                            <div class="form-group">
+                                <span class="title-info">زمینه ترجمه:</span>
+                                <select class="form-control bs-select" name="field" data-live-search="true" data-size="8">
+
+                                    <option value="32,0">عمومی</option>
+                                    <option value="23,0">اقتصاد</option>
+                                    <option value="26,0">برق و الکترونیک</option>
+                                    <optgroup label="پزشکی">
+                                        <option value="8,0">پزشکی</option>
+                                        <option value="8,100">دندانپزشکی</option>
+                                        <option value="8,101">پرستاری</option>
+                                        <option value="8,103">دامپزشکی</option>
+                                        <option value="8,105">داروسازی</option>
+                                    </optgroup>
+                                    <option value="41,0">تاریخ</option>
+                                    <option value="42,0">حسابداری و مالی</option>
+                                    <option value="9,0">حقوق</option>
+                                    <option value="51,0">خبر و گزارش های ژورنالیستی</option>
+                                    <option value="52,0">رزومه و انگیزه نامه</option>
+                                    <option value="44,0">رمان و داستان</option>
+                                    <option value="10,0">روان شناسی</option>
+                                    <option value="14,0">ریاضی، فیزیک و آمار</option>
+                                    <option value="29,0">زمین شناسی و معدن</option>
+                                    <option value="35,0">زیرنویس فیلم سینمایی و سریال</option>
+                                    <option value="21,0">زیست شناسی</option>
+                                    <option value="38,0">سیاسی و روابط بین الملل</option>
+                                    <option value="11,0">شیمی</option>
+                                    <option value="45,0">صنایع غذایی</option>
+                                    <option value="13,0">علوم اجتماعی و جامعه شناسی</option>
+                                    <option value="15,0">عمران</option>
+                                    <option value="28,0">فلسفه</option>
+                                    <option value="33,0">قرارداد و اسناد تجاری</option>
+                                    <option value="16,0">کامپیوتر و شبکه</option>
+                                    <option value="37,0">کشاورزی</option>
+                                    <option value="47,0">گردشگری</option>
+                                    <option value="46,0">گیم، اینترنت و گجت</option>
+                                    <option value="34,0">متالورژی و مواد</option>
+                                    <option value="22,0">متون ادبی و شعر</option>
+                                    <option value="17,0">محیط زیست و منابع طبیعی</option>
+                                    <option value="18,0">مدیریت و فناوری اطلاعات</option>
+                                    <option value="30,0">معارف اسلامی و الهیات</option>
+                                    <option value="40,0">معماری و شهرسازی</option>
+                                    <option value="19,0">مکانیک</option>
+                                    <option value="50,0">مهندسی پزشکی</option>
+                                    <option value="49,0">مهندسی شیمی</option>
+                                    <option value="27,0">مهندسی صنایع</option>
+                                    <option value="48,0">نظامی</option>
+                                    <option value="39,0">نفت ، گاز و پتروشیمی</option>
+                                    <option value="25,0">ورزشی و تربیت بدنی</option>
+                                    <option value="20,0">هنر</option>
+                                    <option value="43,0">هوافضا</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <span class="title-info">زبان ترجمه:</span>
+                                <select class="form-control bs-select" name="lang" data-live-search="true" data-size="8">
+
+                                    <option value="7">انگلیسی به فارسی</option>
+                                    <option value="8">فارسی به انگلیسی</option>
+                                    <option value="9">فارسی به فرانسه</option>
+                                    <option value="10">فرانسه به فارسی</option>
+                                    <option value="11">آلمانی به فارسی</option>
+                                    <option value="12">فارسی به آلمانی</option>
+                                    <option value="13">عربی به فارسی</option>
+                                    <option value="14">فارسی به عربی</option>
+                                    <option value="15">ترکی استانبولی به فارسی</option>
+                                    <option value="16">فارسی به ترکی استانبولی</option>
+                                    <option value="17">اسپانیایی به فارسی</option>
+                                    <option value="18">فارسی به اسپانیایی</option>
+                                    <option value="21">ایتالیایی به فارسی</option>
+                                    <option value="22">فارسی به ایتالیایی</option>
+                                    <option value="23">روسی به فارسی</option>
+                                    <option value="24">فارسی به روسی</option>
+                                    <option value="25">چینی به فارسی</option>
+                                    <option value="26">فارسی به چینی</option>
+                                    <option value="27">کره ای به فارسی</option>
+                                    <option value="28">فارسی به کره ای</option>
+                                    <option value="29">سوئدی به فارسی</option>
+                                    <option value="30">مجاری به فارسی</option>
+                                    <option value="31">هلندی به فارسی</option>
+                                    <option value="32">رومانیایی به فارسی</option>
+                                    <option value="33">ترکی آذربایجانی به فارسی</option>
+                                    <option value="34">ارمنی به فارسی</option>
+                                    <option value="35">ژاپنی به فارسی</option>
+                                    <option value="36">فارسی به ژاپنی</option>
+                                    <option value="37">اکراینی به فارسی</option>
+                                    <option value="38">اردو به فارسی</option>
+                                    <option value="39">تاجیک به فارسی</option>
+                                    <option value="40">کردی به فارسی</option>
+                                    <option value="41">پرتغالی به فارسی</option>
+                                    <option value="42">فارسی به ترکی آذربایجانی</option>
+                                    <option value="43">فارسی به ارمنی</option>
+                                    <option value="44">فارسی به هلندی</option>
+                                    <option value="45">فارسی به کردی</option>
+                                    <option value="46">فارسی به سوئدی</option>
+                                    <option value="47">لهستانی به فارسی</option>
+                                    <option value="48">فارسی به لهستانی</option>
+                                    <option value="49">فارسی به پرتغالی</option>
+                                    <option value="50">فارسی به مجاری</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                    <span class="title-info">تعداد کلمات:</span>
+                                    <input class="form-control" name="count" type="number" value="250">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center mb30">
+                    	<button class="btn theme_btn" ng-click="orderSubmit(project)">تخمین سفارش</button>
+                        <button class="btn btn-lg btn-discard " ng-click="cancel()"> کنسل </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

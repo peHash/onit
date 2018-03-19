@@ -127,34 +127,28 @@
 					</li>
 					<li uib-dropdown on-toggle="toggled(open)">
 						<a href="#" uib-dropdown-toggle ng-click="">ترجمه تخصصی</a>
-				      <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-				        	<li role="menuitem"><a ng-click="openModal('s_unofficial');"> ترجمه مقاله </a></li>
-							<li role="menuitem"><a ng-click="openModal('s_unofficial');"> محتوا و متن </a></li>
-							<li role="menuitem"><a ng-click="openModal('s_unofficial');"> ترجمه کتاب </a></li>
-							<li role="menuitem"><a ng-click="openModal('s_unofficial');"> زیرنویس فیلم </a></li>
-							<li role="menuitem"><a ng-click="openModal('s_unofficial');"> وب سایت </a></li>
-							<li role="menuitem"><a ng-click="openModal('s_unofficial');"> کاتالوگ </a></li>
+						<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+							<li role="menuitem"><a ng-click="openModal('s_unofficial_paper');"> ترجمه مقاله </a></li>
+							<li role="menuitem"><a ng-click="openModal('s_unofficial_content');"> محتوا و متن </a></li>
+							<!-- <li role="menuitem"><a ng-click="openModal('s_unofficial_book');"> ترجمه کتاب </a></li> -->
+							<li role="menuitem"><a ng-click="openModal('s_unofficial_subtitle');"> زیرنویس فیلم </a></li>
+							<!-- <li role="menuitem"><a ng-click="openModal('s_unofficial_web');"> وب سایت </a></li> -->
+							<li role="menuitem"><a ng-click="openModal('s_unofficial_cata');"> کاتالوگ </a></li>
 							<li class="divider"></li>
-							<li role="menuitem"><a href="#" ng-click="openModal('s_unofficial');">سازمانی و شرکت</a></li>
-				      </ul>
+							<li role="menuitem"><a href="#" ng-click="openModal('s_unofficial_org');">سازمانی و شرکت</a></li>
+						</ul>
 					</li>
-					<ul class="nav navbar-nav pull-left dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-						<div style="margin-top:23px;margin-left:50px;" class="btn-group">
-							<button id="profile-btn" type="button" class="btn theme_btn" uib-dropdown-toggle ng-disabled="disabled">
-							<span class="caret"></span> سلام دوست عزیز
-							</button>
-							<ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-							<li role="menuitem"><a href="#"> خوش آمدید </a></li>
+					<li uib-dropdown on-toggle="">
+						<a href="#" uib-dropdown-toggle>ترجمه اسناد رسمی</a>
+						<ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+							<li role="menuitem"><a ng-click="openModal('s_official');"> سفارش اسناد رسمی </a></li>
+							<li role="menuitem"><a ng-click="openModal('s_official');"> لیست قیمت </a></li>
+							<li role="menuitem"><a ng-click="openModal('s_official');"> استخدام مترجم رسمی </a></li>
 							<li class="divider"></li>
-							<li role="menuitem"><a href="#">گزارشات مالی</a></li>
-							<li role="menuitem"><a href="/deposit">کیف پول</a></li>
+							<li role="menuitem"><a ng-click="openModal('s_official');"> محدود پیک رایگان </a></li>
 							<li class="divider"></li>
-							<li role="menuitem"><a href="#" ng-click="gn();">خروج</a></li>
-							</ul>
-						</div>
-					</ul>
-					<li class="active">
-						<a href="#paper" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('s_official');">ترجمه اسناد رسمی</a>
+							<li role="menuitem"><a href="#" ng-click="openModal('s_official');">قوانین اسناد رسمی</a></li>
+						</ul>
 					</li>
 					<li>
 						<a href="#" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('s_quote');">قیمت ترجمه</a>
