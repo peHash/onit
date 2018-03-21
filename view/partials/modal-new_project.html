@@ -97,16 +97,7 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                                 </select>
                     </div>
                     <div class="col-sm-12">
-                        <p>
-    در مورد پروژه خود بیشتر توضیح دهید
-                        </p>
                         <ol>
-                            <li class="form-step">
-                                <p>
-نام پروژه :
-                                </p>
-                                <input id="projectname" type="text" name="project_name" class="form-control" ng-model="project.name"></input>
-                            </li>
                             <!-- <li class="form-step">
                                 <p>
                                     مهارت های مورد نیاز برای انجام این پروژه :
@@ -125,7 +116,60 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-    فایل های مورد نیاز خود را آپلود کنید
+            زمان تحویل
+                        </p>
+                        <p class="input-group" style="width: 100%;">
+                          <!-- <span class="input-group-btn">
+                            <button id="datePickerBtn" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="بسته" alt-input-formats="altInputFormats" ng-click="open1()" /> -->
+                            <div class="input-wrap p-b-30 cf">
+                                <a href="#" class="btn-standard btn-option js-required-days" data-val="1">۲۴ ساعته
+                                </a><a href="#" class="btn-standard btn-option js-required-days" data-val="3">۴۸ ساعته
+                                </a><a href="#" class="btn-standard btn-option js-required-days" data-val="7">یک هفته</a>
+                                <a href="#" class="btn-standard btn-option js-required-days other" data-val="0">دو هفته</a>
+                            </div>
+                            <aside class="post-request-tooltip" style="display: none;">
+                                <figure>
+                                    <h3 class="p-t-10"><span class="fa fa-lightbulb-o"></span>Set a Delivery Time</h3>
+                                    <p>This is the amount of time the seller has to work on your order. Please note that a request for faster delivery may impact<br>the price.</p>
+                                </figure>
+                            </aside>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <ol>
+                            <li class="form-step">
+                                <p>
+            بودجه مورد نظرتان 
+                                </p>
+                                <div class="input-wrap p-b-30 cf">
+                                    <input type="text" class="form-control" style="font-size: 15px;width: 50%;" placeholder="حداقل ۱۵،۰۰۰ تومان">
+                                    <input type="hidden" name="request[budget]" value="">
+                                </div>
+                            
+                                <aside class="post-request-tooltip" style="display: none">
+                                    <figure>
+                                        <h3 class="p-t-10"><span class="fa fa-lightbulb-o"></span>Set Your Budget</h3>
+                                        <p>Enter an amount you are willing to spend for this service.</p>
+                                    </figure>
+                                </aside>
+                            </li>
+                            <!-- <li class="form-step">
+                                <p>
+                                    مهارت های مورد نیاز برای انجام این پروژه :
+                                </p>
+                                 <md-chips collection='itemsCollection' ng-model='returnedValues' md-title='title' md-subtitle='subtitle' md-item='items'/>
+                            </li> -->
+                        </ol>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <p>
+        فایل های مورد نیاز خود را آپلود کنید
                         </p>    
                         <ol>
                             <li class="form-step">
@@ -198,20 +242,10 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                                     </div>
                                 </div>
                             </li>
-                            <li class="form-step">
-                                <p>
-زمان تحویل
-                                </p>
-                                <p class="input-group" style="width: 100%;">
-                                  <span class="input-group-btn">
-                                    <button id="datePickerBtn" type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                                  </span>
-                                  <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="بسته" alt-input-formats="altInputFormats" ng-click="open1()" />
-                                </p>
-                            </li>
                         </ol>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-sm-12 text-center mb30">
                         <div id="recaptcha" vc-recaptcha key="'6LdD7iUUAAAAAMdzX8UuKlRECBeKtYOoRwAI7d2T'" ng-model="project.recaptcha" size="normal" lang="fa" style="margin-bottom: 30px;"></div>

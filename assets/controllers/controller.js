@@ -55,28 +55,31 @@ function testFunction(toaster) {
 function openModal (group) {
   switch (group){
     case 'translator':   
-		modalStarter('view/partials/modal-contactus.html', 'false', contactUsController);
-		break;
+    modalStarter('view/partials/modal-contactus.html', 'false', contactUsController);
+    break;
     case 'customer':
-		modalStarter('view/partials/modal-new_project.html', 'false', newProjectController);
-		break;
+    modalStarter('view/partials/modal-new_project.html', 'false', newProjectController);
+    break;
     case 'experts': 
-		modalStarter('view/partials/modal-experts_list.html', 'false', expertsListController);
-		break;
+    modalStarter('view/partials/modal-experts_list.html', 'false', expertsListController);
+    break;
     case 'login':
-		modalStarter('view/partials/modal-login.html', 'false', loginController);
-		break;
+    modalStarter('view/partials/modal-login.html', 'false', loginController);
+    break;
     case 'signup':
-		modalStarter('view/partials/modal-signup.html', 'false', signUpController);
-		break;
+    modalStarter('view/partials/modal-signup.html', 'false', signUpController);
+    break;
     case 'payment':
-		modalStarter('view/partials/modal-payment.html', 'false', paymentController);
-		break;
-  	case 's_unofficial_paper':
-  		modalStarter('view/partials/modal-services_paper.html', 'false', servicesController);
-  		break;
+    modalStarter('view/partials/modal-payment.html', 'false', paymentController);
+    break;
+    case 's_unofficial_paper':
+      modalStarter('view/partials/modal-services_paper.html', 'false', servicesController);
+      break;
     case 's_unofficial_content':
       modalStarter('view/partials/modal-services_content.html', 'false', servicesController);
+      break;
+    case 's_unofficial_cata':
+      modalStarter('view/partials/modal-services_catalouge.html', 'false', servicesController);
       break;
     case 's_unofficial_book':
       modalStarter('view/partials/modal-services_book.html', 'false', servicesController);
@@ -84,12 +87,12 @@ function openModal (group) {
     case 's_unofficial_subtitle':
       modalStarter('view/partials/modal-services_subtitle.html', 'false', servicesController);
       break;
-  	case 's_official':
-  		modalStarter('view/partials/modal-services_of.html', 'false', servicesController);
-  		break;
-  	case 's_quote':
-  		modalStarter('view/partials/modal-services_quotation.html', 'false', servicesController);
-  		break;
+    case 's_official':
+      modalStarter('view/partials/modal-services_of.html', 'false', servicesController);
+      break;
+    case 's_quote':
+      modalStarter('view/partials/modal-services_quotation.html', 'false', servicesController);
+      break;
   }
 }
 
@@ -251,45 +254,49 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
 
 function servicesController($scope, toaster, $http, $uibModalInstance) {
 // Analytics.trackPage('/contact-us', 'Expert Acquisition');
+$scope.quotaiton.price = false;
+$scope.quotaiton.showPrice = function() {
+  $scope.quotation.price = !$scope.quotation.price;
+}
 
 }
   
 
 function loginController($rootScope, $scope, Auth, toaster, $uibModalInstance, $timeout) {
 
-	$scope.uploadFiles = function(files) {
+  $scope.uploadFiles = function(files) {
 
-	    if (files && files.length) {
-	            for (var i = 0; i < files.length; i++) {
-	              var file = files[i];
-	              if (!file.$error) {
-	                $scope.uploading = 'uploading'
-	                Upload.upload({
-	                    url: 'http://onita.ir/api/uploadDocs',
-	                    data: {
-	                      username: 'mE',
-	                      file: file  
-	                    }
-	                }).then(function (resp) {
-	                    $timeout(function() {
-	                      console.log(resp)
-	                        // $scope.log = 'file: ' +
-	                        // resp.config.data.file.name +
-	                        // ', Response: ' + JSON.stringify(resp.data) +
-	                        // '\n' + $scope.log;
-	                        // console.log(resp);
-	                        $scope.fileNames.push(resp.data.fileName);
-	                    });
-	                }, function(err) {console.log(err)}, function (evt) {
-	                    var progressPercentage = parseInt(100.0 *
-	                        evt.loaded / evt.total);
-	                    $scope.fileProgress = progressPercentage;
-	                });
-	              }
-	            }
-	            $scope.uploading = false;
-	        }
-  	};
+      if (files && files.length) {
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                if (!file.$error) {
+                  $scope.uploading = 'uploading'
+                  Upload.upload({
+                      url: 'http://onita.ir/api/uploadDocs',
+                      data: {
+                        username: 'mE',
+                        file: file  
+                      }
+                  }).then(function (resp) {
+                      $timeout(function() {
+                        console.log(resp)
+                          // $scope.log = 'file: ' +
+                          // resp.config.data.file.name +
+                          // ', Response: ' + JSON.stringify(resp.data) +
+                          // '\n' + $scope.log;
+                          // console.log(resp);
+                          $scope.fileNames.push(resp.data.fileName);
+                      });
+                  }, function(err) {console.log(err)}, function (evt) {
+                      var progressPercentage = parseInt(100.0 *
+                          evt.loaded / evt.total);
+                      $scope.fileProgress = progressPercentage;
+                  });
+                }
+              }
+              $scope.uploading = false;
+          }
+    };
 
   $scope.login = function() {
     Auth.login({email: $scope.email, password: $scope.password})
@@ -524,38 +531,42 @@ if (Modernizr.csstransforms3d) {
  /* Menu hide/show on scroll */
 
 $scope.ost = 0;
-		    $(window).scroll(function() {
-		    	
-		    	$scope.m=angular.element($window);
-		        $scope.cOst = $scope.m.scrollTop();
-		        if($scope.cOst == 0)
-		        {
-		        	
-		        	angular.element('.navbar').addClass("top-nav-collapse");
-		        	angular.element('.navbar').removeClass('scroll_menu');
-		        } else if($scope.cOst > $scope.ost)
-		        {
-		        	
-		        	angular.element('.navbar').addClass("top-nav-collapse").removeClass("default");
-		        	angular.element('.navbar').removeClass('scroll_menu');
-		        } else 
-		        {
-		        	
-		        	angular.element('.navbar').addClass("default").removeClass("top-nav-collapse");
-		        	angular.element('.navbar').addClass('scroll_menu').removeClass('top-nav-collapse');
-		        }
-		        $scope.ost = $scope.cOst;
-		    });
+        $(window).scroll(function() {
+          
+          $scope.m=angular.element($window);
+            $scope.cOst = $scope.m.scrollTop();
+            if($scope.cOst == 0)
+            {
+              
+              angular.element('.navbar').addClass("top-nav-collapse");
+              angular.element('.navbar').removeClass('scroll_menu');
+            } else if($scope.cOst > $scope.ost)
+            {
+              
+              angular.element('.navbar').addClass("top-nav-collapse").removeClass("default");
+              angular.element('.navbar').removeClass('scroll_menu');
+            } else 
+            {
+              
+              angular.element('.navbar').addClass("default").removeClass("top-nav-collapse");
+              angular.element('.navbar').addClass('scroll_menu').removeClass('top-nav-collapse');
+            }
+            $scope.ost = $scope.cOst;
+        });
 
    
 /*Collapse Start*/
 
-     $scope.oneAtATime = true;
+     $scope.oneATA = true;
     $scope.status={
-        feature1Open:true,
-        feature1close:false,
-        feature2close:false,
-        feature3close:false
+        acc1lClose:false,
+        acc2lClose:false,
+        acc3lClose:false,
+        acc4lClose:false,
+        acc1rClose:false,
+        acc2rClose:false,
+        acc3rClose:false,
+        acc4rClose:false
     };
     /*Collapse End*/
       

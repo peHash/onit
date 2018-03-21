@@ -1,4 +1,56 @@
 /*Onita appLab StyleSheets*/
+#telegram-pricelist a {
+    font-size: 13px;
+}
+
+.btn-option {
+    font-size: 14px;
+    text-transform: capitalize;
+    text-align: center;
+    padding: 10px 0;
+    margin-left: 20px;
+    float: left;
+    width: 116px;
+    box-sizing: border-box;
+}
+.input-wrap {
+    min-height: 40px;
+    padding-left: 45px;
+    position: relative;
+}
+.btn-standard {
+    float: right;
+    display: inline-block;
+    letter-spacing: 0;
+    color: #777777;
+    white-space: nowrap;
+    text-transform: uppercase;
+    border: 1px #cccccc solid;
+    padding: 9px 20px 8px 20px;
+    margin: 0;
+    margin-right: 15px;
+    cursor: pointer;
+    -webkit-transition: color .2s,background-color .2s,box-shadow .2s,border .2s;
+    transition: color .2s,background-color .2s,box-shadow .2s,border .2s;
+    border-radius: 3px;
+}
+.btn-standard:first-child {
+    margin-right: 0;
+}
+.btn-standard:hover {
+    color: rgba(1, 204, 223, 1);
+    border: 1px rgba(1, 204, 223, .7) solid;
+    text-decoration: none;
+}
+
+
+#header {
+    background: linear-gradient(-90deg, rgba(0, 169, 196, .8), rgba(14, 122, 232, .7)), url('https://contently.com/wp-content/uploads/2017/12/domenico-loia.jpg');
+    /*background-position: -175px 0;*/
+}
+#home .btn-groups .theme_btn {
+    letter-spacing: 1px;
+}
 
 .modal-content section {padding: 80px 0}
 .btn-post{
@@ -29,7 +81,12 @@ border-color: transparent;
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {background-color: transparent;border-color: none;}
 .dropdown-menu {right: 0;left:inherit;}
 .dropdown-menu {text-align: right;}
-.dropdown-menu > li > a {color: #666;font-size: medium;}
+.dropdown-menu > li > a {
+    color: #666;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 6px 15px;
+}
 .dropdown-menu > li > a .text-muted {margin-right: 10px;font-size: smaller;margin-top: 2px;}
 
 /*Modal New Project*/

@@ -8,7 +8,7 @@
 }
 
 nav {
-    background: linear-gradient(-90deg, #01ccdf, #0e7ae8)
+    background: linear-gradient(-90deg, rgba(1, 204, 223, .3), rgba(14, 122, 232, .2));
 }
 
 li.form-step {
@@ -16,7 +16,7 @@ li.form-step {
     float: right;
 }
 .onita-collection {
-    width: 32%;
+    width: 100%;
     float: right;
 }
 .uib-datepicker-popup .uib-button-bar button {
@@ -136,6 +136,22 @@ li.form-step {
     text-align: center;
     padding: 20px;
 }
+
+#services-info .file-size {
+    display: block;
+    padding-top: 30px;
+    font-size: 18px;
+}
+#services-info .file-type {
+    display: block;
+    padding-top: 60px;
+    font-size: 18px;
+}
+
+#services-info .collection-item-name {
+    font-size: 16px !important;
+}
+
 .aligncenter {
     display: block;
     margin: 0 auto 30px;

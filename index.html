@@ -67,12 +67,6 @@
 </head>
 
 
-<a href="http://t.me/tele_job">
-        <div class="telegram-banner">
-            مشاوره و ثبت سفارش در تلگرام &nbsp;<img src="/assets/images/telegram-logo.png" alt="" width="30px">
-
-        </div>
-    </a>
 <body data-ng-controller="MyController" data-spy="scroll" data-target=".navbar" data-offset="50">
 <!-- <div id="main_loader">
 	<div id="loader">
@@ -120,7 +114,7 @@
 					</ul>
 				</div>
 			</ul>
-			<div class="collapse navbar-collapse" id="services">
+			<div class="collapse navbar-collapse" id="services" style="position: relative;">
 				<ul class="nav navbar-nav pull-right">
 					<li>
 						<a href="#" data-du-smooth-scroll data-du-scrollspy ng-click="openModal('customer');">سفارش ترجمه</a>
@@ -245,7 +239,7 @@
 						<img src="assets/images/logo/logo-typo-w.png" alt="لوگو اونیتا">
 					</a>
 					<p class="mb30">
-						اونیتا بستر ترجمه آنلاین کاملا متمرکز بر نیاز دانشجو است که امکان دسترسی به مجرب ترین مترجمین را فراهم آورده است .
+						اونیتا بستر ترجمه و تولید محتوای آنلاین متمرکز بر شبکه های اجتماعی 
 					</p>
 					<div class="social_icons hidden">
 						<a href="#">
@@ -351,6 +345,9 @@
 <!-- Persian Date Picker  -->
 <script src="assets/js/persiandate.js"></script>
 <script src="assets/js/persiandate-tpls.js"></script>
+
+<script src="bower_components/persianjs/persian.js"></script>
+<script src="bower_components/angular-persian/dist/angularpersian.js"></script>
 
 </body>
 </html>

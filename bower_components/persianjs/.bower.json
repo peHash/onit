@@ -1,0 +1,14 @@
+{
+  "name": "persianjs",
+  "homepage": "https://github.com/usablica/persian.js",
+  "version": "0.3.0",
+  "_release": "0.3.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.0",
+    "commit": "afc0161d61b5534e41670a0bd9541b020daf9411"
+  },
+  "_source": "https://github.com/usablica/persian.js.git",
+  "_target": "~0.3.0",
+  "_originalSource": "persianjs"
+}

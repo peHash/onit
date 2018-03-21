@@ -36,16 +36,23 @@ const bot = new TelegramBot(token, {polling: true});
 
 
 bot.on('message', (msg) => { //dev
-  if (msg.from.id == 34106450) {
-    if (msg.reply_to_message && msg.reply_to_message.forward_from) {
-      bot.sendMessage(msg.reply_to_message.forward_from.id, msg.text);
-    }
-  } 
-  else {
-      bot.forwardMessage(34106450, msg.chat.id, msg.message_id);
-    }
+  // if (msg.from.id == 34106450) {
+  //   if (msg.reply_to_message && msg.reply_to_message.forward_from) {
+  //     bot.sendMessage(msg.reply_to_message.forward_from.id, msg.text);
+  //   }
+  // } 
+  // else {
+  //     bot.forwardMessage(34106450, msg.chat.id, msg.message_id);
+  //   }
+   var hny = 
+              `
+<a href="http://onita.ir/assets/images/200_deposit.png">&#8205</a>
+<strong>افزایش موجودی</strong>
+\n\n
+🆔 <a href="http://t.me/onitatestchannel">@onitabot</a> 
+              `;
   
-  console.log(msg)
+  bot.sendVideo(34106450,'BAADBAADmQIAAof-kFHdvmdHxqaecQI',{ caption: hny, parse_mode: 'HTML'});
 })
 
 // agenda.define('send project auto', function(){
