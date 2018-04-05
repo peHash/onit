@@ -338,15 +338,16 @@
                                         <td colspan="8">
                                             
                                             
-                                            <p id="telegram-pricelist"><a href="tg://resolve?domain=worldtranslators">در صورتی که در مورد قیمت سفارش سوالی دارید با تلگرام worldtranslators@ تماس بگیرید. <img src="/Assets/Img/telegram-logo.png" alt="" width="30px"></a></p>
+                                            <p id="telegram-pricelist"><a href="https://t.me/tele_job">در صورتی که در مورد قیمت سفارش سوالی دارید با تلگرام تماس بگیرید.</a></p>
                                         </td>
                                     </tr>
                                     </tbody></table>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 text-center mb30">
-                    	<button class="btn theme_btn" ng-click="quotation.showPrice()">تخمین سفارش</button>
-                        <button class="btn btn-lg btn-discard " ng-click="cancel()"> کنسل </button>
+                    	<button class="btn theme_btn" ng-if="!quotation.price" ng-click="quotation.showPrice()">تخمین قیمت</button>
+                        <button class="btn theme_btn" ng-if="quotation.price" ng-click="openModal('customer');">ثبت سفارش</button>
+                        <button class="btn btn-lg btn-discard" ng-if="quotation.price" ng-click="quotation.showPrice()"> بازگشت </button>
                     </div>
                 </div>
             </form>

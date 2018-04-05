@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.1 (44463) - http://www.bohemiancoding.com/sketch -->
+    <title>Check Blue</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="Check-Blue" stroke="#0061FF" stroke-width="3">
+            <g id="Checkmark" transform="translate(9.594809, 9.617193) rotate(40.000000) translate(-9.594809, -9.617193) translate(6.594809, 4.617193)">
+                <path d="M0.200693194,8.5 L4.29404725,8.5" id="Line"></path>
+                <path d="M4.5,8.232 L4.5,2.3625546e-13" id="Line"></path>
+            </g>
+        </g>
+    </g>
+</svg>

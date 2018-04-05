@@ -1,10 +1,12 @@
 
 
-app.controller('MyController', function ($scope,$rootScope,Modernizr,$window, $http, $uibModal,$timeout, Auth) {
+app.controller('onitaController', function ($scope,$rootScope,Modernizr,$window, $http, $uibModal,$timeout, Auth, $q, Upload) {
 
 // $scope.userLogged = false;
 
 $scope.sentences  = ["از تحویل یک روزه", "از مترجمین متخصص", "از قیمت مقرون به صرفه"];
+
+$scope.filesName = [];
 
 $scope.openModal = openModal;
 
@@ -17,6 +19,48 @@ $scope.init = init;
 $scope.gn = goodNight;
 
 $scope.testFunction = testFunction;
+
+$scope.uploadFiles = function(files) {
+  if ($scope.filesName.length + files.length <= 3) {
+    fileUploader(files, $scope.filesName, (resp) => {console.log(resp);$scope.filesName.push(resp.config.data)});
+  } else {
+    console.log('Upload limitation Excess !')
+  }
+}
+
+$scope.immiOrder = function(customer) {
+
+
+  if (!$scope.filesName.length) {
+    // toaster.pop('error', failed.header, failed.body)
+  } else {
+    console.log($scope.filesName)
+    sendOrder();
+  }
+
+    function sendOrder() {
+      config = {
+        method: 'POST',
+        url: 'http://onita.ir/v1/orderProject', 
+        data: {
+          contact: customer.email,
+          doc: $scope.filesName[0].file.name,
+          immi: true
+        }
+      }
+      $http(config).then(resolve, reject);
+      function resolve(r) {
+        // toaster.pop('success', succ.header , succ.body);
+      };
+      function reject(e) {
+        // toaster.pop('error', failed.header, failed.body)
+      };
+    }
+}
+
+
+
+
 
 init();
 
@@ -48,6 +92,47 @@ function testFunction(toaster) {
     };
     function reject(e) {toaster.pop('error', failed.header, failed.body)};
   }
+
+  function fileUploader(files, filesList, callback) {
+
+    var q = $q.defer();
+    
+    if (!filesList) {
+      filesList = $scope.filesName;
+    }
+    
+    if (files && (files.length + filesList.length <= 3)) {
+            for (var i = 0; i < files.length; i++) {
+              var file = files[i];
+              if (!file.$error) {
+                
+                Upload.upload({
+                    url: 'http://onita.ir/v1/uploadDocs',
+                    data: {
+                      username: 'mE',
+                      file: file  
+                    }
+                }).then(function (resp) {
+                  $scope.progressor = 0;
+                    $timeout(function() {
+                        // $scope.log = 'file: ' +
+                        // resp.config.data.file.name +
+                        // ', Response: ' + JSON.stringify(resp.data) +
+                        // '\n' + $scope.log;
+                        // console.log(resp);
+                        // q.resolve(resp);
+                        return callback(resp)
+                    });
+                }, function(err) {q.reject(err)}, function (evt) {
+                    var progressPercentage = parseInt(100.0 *
+                        evt.loaded / evt.total);
+                    $scope.progressor = progressPercentage;
+                });
+                return q.promise;
+              }
+            }
+        }
+  };
 
 
 
@@ -122,8 +207,8 @@ function contactUsController($scope, toaster, $http, $uibModalInstance) {
   }
   $scope.user = {
     callPerm: false,
-    minHour: 6,
-    maxHour: 12
+    minHour: 10,
+    maxHour: 22
   };
   $scope.submitForm = submitForm;
   $scope.cancel = closeModal;
@@ -146,25 +231,32 @@ function contactUsController($scope, toaster, $http, $uibModalInstance) {
   }
 
   function submitForm(User) {
+    if (User.recaptcha) {sendRequest()} else {reject('TU')};
+    function sendRequest() {
       config = {
       method: 'POST',
-      url: '/api/expert', 
+      url: '/v1/partnershipReq', 
       data: {
-        expName: User.name,
-        expEmail: User.email,
-        expTel: User.tel,
-        expResume: User.resume,
-        expTelegram: User.telegram,
-        expVoiceCall: User.callPerm
+        expName: User.name || 'UNK',
+        expEmail: User.email || 'UNK',
+        expTel: User.tel || 'UNK',
+        expResume: User.resume || 'UNK',
+        expTelegram: User.telegram || 'UNK',
+        expVoiceCall: User.callPerm || 'UNK'
+        }
       }
+      $http(config).then(resolve, reject);
     }
-    $http(config).then(resolve, reject);
-    function resolve(r) {
-      toaster.pop('success', succ.header , succ.body)
-      $timeout(function() {$uibModalInstance.close();}, 3000);
-    };
-    function reject(e) {toaster.pop('error', failed.header, failed.body)};
+      function resolve(r) {
+        toaster.pop('success', succ.header , succ.body)
+        $timeout(function() {$uibModalInstance.close();}, 3000);
+      }
+      function reject(e) {
+        toaster.pop('error', failed.header, failed.body);
+        $timeout(function() {$uibModalInstance.close();}, 3000);
+      }
   }
+      
 
   function refreshSlider(){
     $timeout(function () {
@@ -174,9 +266,21 @@ function contactUsController($scope, toaster, $http, $uibModalInstance) {
 
 }
 
-function newProjectController($scope, Upload, $http, toaster, $uibModalInstance){
+function newProjectController($scope, Upload, $http, toaster, $uibModalInstance, $filter){
   // Analytics.trackPage('/new-project');
+  $scope.uploadedDocs = [];
+  $scope.project = {
+    day: 7,
+    cate: '32,0',
+    type: 'bronze'
+  };
+  //  $scope.$watch('project.cate',function(){
+  //   console.log($scope.project.cate)
+  // });
 
+  $scope.$watch('project.budget',function(){
+    $scope.project.budget = $filter('pNumber')($scope.project.budget);
+  });
   $scope.dt = new Date();
   $scope.fileNames = [{}, {}, {}]
 
@@ -218,23 +322,43 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
     $uibModalInstance.close();
   }
 
+  $scope.deliverySet = function(d) {
+    $scope.project.day = d;
+  }
+
+  $scope.typeSet = function(t) {
+    $scope.project.type = t;
+  }
+
+  $scope.uploadFiles = function(files) {
+    if ($scope.fileNames.length + files.length <= 3) {
+      // fileUploader(files, $scope.fileNames).then((resp, err) => {if (!err) {$scope.fileNames.push(resp.config.data)} else {console.log('err')} });
+      fileUploader(files, $scope.fileNames, (resp) => {$scope.fileNames.push(resp.config.data);$scope.uploadedDocs.push(resp.data.fileName)});
+    } else {
+      console.log('Upload limitation Excess !')
+    }
+  }
+
+
   $scope.orderSubmit = function(project) {
       
-    $scope.upload($scope.files);
-    // console.log($scope.files)
-    angular.forEach($scope.fileNames, function(value, key) {
-      dataFileNames.push(value['name']);
-    });
+  //   $scope.upload($scope.files);
+  //   // console.log($scope.files)
+    // angular.forEach($scope.fileNames, function(value, key) {
+    //   // uploadedDocs.push(value.file.name);
+    //   console.log(value)
+    // });
    
     config = {
       method: 'POST',
-      url: 'http://onita.ir/sendDocument', 
+      url: 'http://onita.ir/v1/orderProject', 
       data: {
-        chat_id: '34106450',
-        projectName: project.name,
-        projectDesc: project.desc,
-        username: 'order.username',
-        document: $scope.fileNames[0],
+        pType: project.type,
+        pCate: project.cate,
+        pDesc: project.desc,
+        documents: $scope.uploadedDocs,
+        pDay: project.day,
+        pBudg: project.budget,
         reCaptcha: project.recaptcha
       }
     }
@@ -245,58 +369,28 @@ function newProjectController($scope, Upload, $http, toaster, $uibModalInstance)
     };
     function reject(e) {toaster.pop('error', failed.header, failed.body)};
   }
+  
 
-  $scope.$watch('files', function () {
-    if (($scope.fileNames.length || $scope.files && $scope.files.length) > 2 ) return ;
-    });
+  // $scope.$watch('files', function () {
+  //   if (($scope.fileNames.length || $scope.files && $scope.files.length) > 2 ) return ;
+  //   });
 
 }
 
 function servicesController($scope, toaster, $http, $uibModalInstance) {
 // Analytics.trackPage('/contact-us', 'Expert Acquisition');
-$scope.quotaiton.price = false;
-$scope.quotaiton.showPrice = function() {
-  $scope.quotation.price = !$scope.quotation.price;
-}
+  $scope.quotation = {};
+  $scope.quotation.price = false;
+  $scope.quotation.showPrice = function() {
+    $scope.quotation.price = !$scope.quotation.price;
+  }
 
 }
   
 
 function loginController($rootScope, $scope, Auth, toaster, $uibModalInstance, $timeout) {
 
-  $scope.uploadFiles = function(files) {
-
-      if (files && files.length) {
-              for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                if (!file.$error) {
-                  $scope.uploading = 'uploading'
-                  Upload.upload({
-                      url: 'http://onita.ir/api/uploadDocs',
-                      data: {
-                        username: 'mE',
-                        file: file  
-                      }
-                  }).then(function (resp) {
-                      $timeout(function() {
-                        console.log(resp)
-                          // $scope.log = 'file: ' +
-                          // resp.config.data.file.name +
-                          // ', Response: ' + JSON.stringify(resp.data) +
-                          // '\n' + $scope.log;
-                          // console.log(resp);
-                          $scope.fileNames.push(resp.data.fileName);
-                      });
-                  }, function(err) {console.log(err)}, function (evt) {
-                      var progressPercentage = parseInt(100.0 *
-                          evt.loaded / evt.total);
-                      $scope.fileProgress = progressPercentage;
-                  });
-                }
-              }
-              $scope.uploading = false;
-          }
-    };
+  
 
   $scope.login = function() {
     Auth.login({email: $scope.email, password: $scope.password})
@@ -398,133 +492,133 @@ $(window).load(function(){
 
         $scope.SyncOwl();
 
-if (Modernizr.csstransforms3d) {
-      window.sr = ScrollReveal();
+// if (Modernizr.csstransforms3d) {
+//       window.sr = ScrollReveal();
     
-      sr.reveal('.snap_middle', {
-       origin: 'bottom',
-       distance: '100px',
-       duration: 1300,
-       delay: 400,
-       opacity: 1,
-       scale: 0,
-       easing: 'ease-in',      
-       reset: true
-      });  
-      sr.reveal('.snap_left_2', {
-       origin: 'right',
-       distance: '100px',
-       duration: 1300,
-       delay: 600,
-       rotate : { x: 0, y: 0, z: 15 },     
-       opacity: 0,
-       scale: 0,
-       easing: 'ease-in',      
-       reset: true
-      });  
-      sr.reveal('.snap_left_3', {
-       origin: 'right',
-       distance: '100px',
-       duration: 1300,
-       delay: 800,
-       rotate : { x: 0, y: 0, b: 25 },
-       opacity: 0,
-       scale: 0,
-       easing: 'ease-in',      
-       reset: true
-      }); 
-      sr.reveal('.snap_left_4', {
-       origin: 'left',
-       distance: '100px',
-       duration: 1300,
-       delay: 600,
-       rotate : { x: 0, y: 0, a: 15 },
-       opacity: 0,
-       scale: 0,
-       easing: 'ease-in',      
-       reset: true
-      });   
+//       sr.reveal('.snap_middle', {
+//        origin: 'bottom',
+//        distance: '100px',
+//        duration: 1300,
+//        delay: 400,
+//        opacity: 1,
+//        scale: 0,
+//        easing: 'ease-in',      
+//        reset: true
+//       });  
+//       sr.reveal('.snap_left_2', {
+//        origin: 'right',
+//        distance: '100px',
+//        duration: 1300,
+//        delay: 600,
+//        rotate : { x: 0, y: 0, z: 15 },     
+//        opacity: 0,
+//        scale: 0,
+//        easing: 'ease-in',      
+//        reset: true
+//       });  
+//       sr.reveal('.snap_left_3', {
+//        origin: 'right',
+//        distance: '100px',
+//        duration: 1300,
+//        delay: 800,
+//        rotate : { x: 0, y: 0, b: 25 },
+//        opacity: 0,
+//        scale: 0,
+//        easing: 'ease-in',      
+//        reset: true
+//       }); 
+//       sr.reveal('.snap_left_4', {
+//        origin: 'left',
+//        distance: '100px',
+//        duration: 1300,
+//        delay: 600,
+//        rotate : { x: 0, y: 0, a: 15 },
+//        opacity: 0,
+//        scale: 0,
+//        easing: 'ease-in',      
+//        reset: true
+//       });   
        
-      sr.reveal('.snap_left_5', {
-       origin: 'left',
-       distance: '100px',
-       duration: 1300,
-       delay: 800,
-       rotate : { x: 0, y: 0, c: 25 },
-       opacity: 0,
-       scale: 0,
-       easing: 'ease-in',      
-       reset: true
-      });
-       sr.reveal('.home_slide1', {
-       origin: 'left',
-       distance: '50px',
-       duration: 1300,
-       delay: 600,         
-       opacity: 0.6,
-       scale: 0,
-       easing: 'linear',      
-       reset: true
-      });   
-       sr.reveal('.home_slide2', {
-       origin: 'left',
-       distance: '50px',
-       duration: 1300,
-       delay: 1800,         
-       opacity:0,
-       scale: 0,
-       easing: 'linear',      
-       reset: true
-      });  
-        sr.reveal('.home_slide3', {
-       origin: 'left',
-       distance: '50px',
-       duration: 1300,
-       delay: 3000,         
-       opacity: 0,
-       scale: 0,
-       easing: 'linear',      
-       reset: true
-      });
-       sr.reveal('.animate_left_40', {
-       origin: 'left',
-       distance: '40px',
-       duration: 800,
-       delay: 400,       
-       opacity: 0, 
-       scale: 0,      
-       easing: 'linear',      
-       reset: true
-      }); 
-       sr.reveal('.animate_top_60', {
-       origin: 'top',
-       distance: '60px',
-       duration: 800,
-       delay: 400,       
-       opacity: 0, 
-       scale: 0,      
-       easing: 'linear',      
-       reset: true
-      });  
-       sr.reveal('.animate_bottom_60', {
-       origin: 'bottom',
-       distance: '60px',
-       duration: 800,
-       delay: 400,       
-       opacity: 0, 
-       scale: 0,      
-       easing: 'linear',      
-       reset: true
-      });  
-       sr.reveal('.animate_fade_in', {      
-       duration: 800,
-       delay: 400,       
-       opacity: 0, 
-       scale: 0,      
-       easing: 'linear',      
-       reset: true
-      });        
-     }
+//       sr.reveal('.snap_left_5', {
+//        origin: 'left',
+//        distance: '100px',
+//        duration: 1300,
+//        delay: 800,
+//        rotate : { x: 0, y: 0, c: 25 },
+//        opacity: 0,
+//        scale: 0,
+//        easing: 'ease-in',      
+//        reset: true
+//       });
+//        sr.reveal('.home_slide1', {
+//        origin: 'left',
+//        distance: '50px',
+//        duration: 1300,
+//        delay: 600,         
+//        opacity: 0.6,
+//        scale: 0,
+//        easing: 'linear',      
+//        reset: true
+//       });   
+//        sr.reveal('.home_slide2', {
+//        origin: 'left',
+//        distance: '50px',
+//        duration: 1300,
+//        delay: 1800,         
+//        opacity:0,
+//        scale: 0,
+//        easing: 'linear',      
+//        reset: true
+//       });  
+//         sr.reveal('.home_slide3', {
+//        origin: 'left',
+//        distance: '50px',
+//        duration: 1300,
+//        delay: 3000,         
+//        opacity: 0,
+//        scale: 0,
+//        easing: 'linear',      
+//        reset: true
+//       });
+//        sr.reveal('.animate_left_40', {
+//        origin: 'left',
+//        distance: '40px',
+//        duration: 800,
+//        delay: 400,       
+//        opacity: 0, 
+//        scale: 0,      
+//        easing: 'linear',      
+//        reset: true
+//       }); 
+//        sr.reveal('.animate_top_60', {
+//        origin: 'top',
+//        distance: '60px',
+//        duration: 800,
+//        delay: 400,       
+//        opacity: 0, 
+//        scale: 0,      
+//        easing: 'linear',      
+//        reset: true
+//       });  
+//        sr.reveal('.animate_bottom_60', {
+//        origin: 'bottom',
+//        distance: '60px',
+//        duration: 800,
+//        delay: 400,       
+//        opacity: 0, 
+//        scale: 0,      
+//        easing: 'linear',      
+//        reset: true
+//       });  
+//        sr.reveal('.animate_fade_in', {      
+//        duration: 800,
+//        delay: 400,       
+//        opacity: 0, 
+//        scale: 0,      
+//        easing: 'linear',      
+//        reset: true
+//       });        
+//      }
 
           });
 

@@ -1,27 +1,6 @@
 <style>
 #newproject {padding: 80px 0}
 ol, ul {list-style: none; margin: 0;padding: 0;}
-.drop-box {
-    background: #F8F8F8;
-    border: 2px dashed #DDD;
-    width: 100%;
-    height: 90px;
-    text-align: center;
-    padding-top: 30px;
-    margin-top: 7px;
-    cursor: pointer;
-}
-.dragover {
-    border: 5px dashed blue;
-}
-
-#datePickerBtn {
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left-width: 0;
-}
 </style>
 <toaster-container toaster-options="{'position-class': 'toast-bottom-left'}"></toaster-container>
 <section id="newproject">
@@ -41,11 +20,53 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
+            نوع ترجمه را انتخاب کنید
+                        </p>
+                        <p class="input-group" style="width: 100%;">
+                            <div class="input-wrap p-b-30 cf">
+                                <div class="premium-badge" type="premium-badge"  aria-hidden="true" ng-class="{active: project.type == 'premium'}" ng-click="typeSet('premium')">
+                                    <svg viewBox="0 0 156 16" style="width:auto; height:10px;" x="0" y="0" preserveAspectRatio="xMinYMin meet"><g class="large-icon" style="fill: currentColor">
+                                        <path style="color: #666; opacity:.7" d="M30,15.7h2.8V9.9h2.5c3.4,0,6-1.6,6-5.1S38.8,0,35.3,0H30Zm2.8-8V2.2h2.3c2.3,0,3.5.6,3.5,2.6s-1.1,2.9-3.5,2.9ZM50.9,2.2h2.2c2.2,0,3.3.6,3.3,2.4s-1.2,2.7-3.3,2.7H50.9Zm8.9,13.5L56.1,9.1a4.32,4.32,0,0,0,3.1-4.5c0-3.5-2.5-4.7-5.8-4.7H48.1V15.6h2.8V9.5h2.4l3.4,6.1h3.1Zm6.6,0h9.7V13.3H69.2V8.7h5.6V6.3H69.2v-4h6.6V0H66.4V15.7Zm16.8,0h2.5V8.5c0-1.5-.2-3.6-.3-5h.1l1.2,3.6,2.7,7.1h1.3l2.7-7.1,1.3-3.6h.1c-.1,1.4-.4,3.5-.4,5v7.2H97V0H93.9L91.1,7.7l-1,3H90l-1-3L86.2,0h-3Zm21.8,0h2.8V0H105Zm10.6-6.9c0,5.2,2.3,7.2,6,7.2s5.9-2,5.9-7.2V0h-2.7V9c0,3.4-1.3,4.5-3.2,4.5s-3.2-1.1-3.2-4.5V0h-2.8Zm19.8,6.9h2.5V8.5c0-1.5-.2-3.6-.3-5h.1l1.2,3.6,2.7,7.1h1.3l2.7-7.1,1.3-3.6h.1c-.1,1.4-.4,3.5-.4,5v7.2h2.6V0h-3.1l-2.8,7.7-1,3h-.1l-1-3L138.4,0h-3V15.7Z"></path>
+                                        <path style="fill:#c8b476" d="M14,0H2A2,2,0,0,0,.59.59L15.41,15.41A2,2,0,0,0,16,14V2A2,2,0,0,0,14,0Z"></path>
+                                        <path style="fill:#b29a53" d="M0,2V14a2,2,0,0,0,2,2H14a2,2,0,0,0,1.41-.59L.59.59A2,2,0,0,0,0,2Z"></path>
+                                      </g>
+                                    </svg>
+                                    <p>ترجمه پریمیوم ، حرفه ای ترین ترجمه (ژورنال و کنفرانس)</p>
+                                </div>
+                                <div class="silver-badge"  aria-hidden="true" ng-class="{active: project.type == 'silver'}" ng-click="typeSet('silver')">
+                                    <svg viewBox="0 0 156 16" style="width:auto; height:10px;" x="0" y="0" preserveAspectRatio="xMinYMin meet"><g class="large-icon" style="fill: currentColor">
+                                        <path style="color: #666; opacity:.7" d="M30,15.7h2.8V9.9h2.5c3.4,0,6-1.6,6-5.1S38.8,0,35.3,0H30Zm2.8-8V2.2h2.3c2.3,0,3.5.6,3.5,2.6s-1.1,2.9-3.5,2.9ZM50.9,2.2h2.2c2.2,0,3.3.6,3.3,2.4s-1.2,2.7-3.3,2.7H50.9Zm8.9,13.5L56.1,9.1a4.32,4.32,0,0,0,3.1-4.5c0-3.5-2.5-4.7-5.8-4.7H48.1V15.6h2.8V9.5h2.4l3.4,6.1h3.1Zm6.6,0h9.7V13.3H69.2V8.7h5.6V6.3H69.2v-4h6.6V0H66.4V15.7Zm16.8,0h2.5V8.5c0-1.5-.2-3.6-.3-5h.1l1.2,3.6,2.7,7.1h1.3l2.7-7.1,1.3-3.6h.1c-.1,1.4-.4,3.5-.4,5v7.2H97V0H93.9L91.1,7.7l-1,3H90l-1-3L86.2,0h-3Zm21.8,0h2.8V0H105Zm10.6-6.9c0,5.2,2.3,7.2,6,7.2s5.9-2,5.9-7.2V0h-2.7V9c0,3.4-1.3,4.5-3.2,4.5s-3.2-1.1-3.2-4.5V0h-2.8Zm19.8,6.9h2.5V8.5c0-1.5-.2-3.6-.3-5h.1l1.2,3.6,2.7,7.1h1.3l2.7-7.1,1.3-3.6h.1c-.1,1.4-.4,3.5-.4,5v7.2h2.6V0h-3.1l-2.8,7.7-1,3h-.1l-1-3L138.4,0h-3V15.7Z"></path>
+                                        <path style="fill:#ffffff" d="M14,0H2A2,2,0,0,0,.59.59L15.41,15.41A2,2,0,0,0,16,14V2A2,2,0,0,0,14,0Z"></path>
+                                        <path style="fill:#eeeeee" d="M0,2V14a2,2,0,0,0,2,2H14a2,2,0,0,0,1.41-.59L.59.59A2,2,0,0,0,0,2Z"></path>
+                                      </g>
+                                    </svg>
+                                    <p>ترجمه نقره ای ، مخصوص مقالات تخصصی</p>
+                                </div>
+                                <div class="bronze-badge"  aria-hidden="true" ng-class="{active: project.type == 'bronze'}" ng-click="typeSet('bronze')">
+                                    <svg viewBox="0 0 156 16" style="width:auto; height:10px;" x="0" y="0" preserveAspectRatio="xMinYMin meet"><g class="large-icon" style="fill: currentColor">
+                                        <path style=    "color: #666; opacity:.7" d="M30,15.7h2.8V9.9h2.5c3.4,0,6-1.6,6-5.1S38.8,0,35.3,0H30Zm2.8-8V2.2h2.3c2.3,0,3.5.6,3.5,2.6s-1.1,2.9-3.5,2.9ZM50.9,2.2h2.2c2.2,0,3.3.6,3.3,2.4s-1.2,2.7-3.3,2.7H50.9Zm8.9,13.5L56.1,9.1a4.32,4.32,0,0,0,3.1-4.5c0-3.5-2.5-4.7-5.8-4.7H48.1V15.6h2.8V9.5h2.4l3.4,6.1h3.1Zm6.6,0h9.7V13.3H69.2V8.7h5.6V6.3H69.2v-4h6.6V0H66.4V15.7Zm16.8,0h2.5V8.5c0-1.5-.2-3.6-.3-5h.1l1.2,3.6,2.7,7.1h1.3l2.7-7.1,1.3-3.6h.1c-.1,1.4-.4,3.5-.4,5v7.2H97V0H93.9L91.1,7.7l-1,3H90l-1-3L86.2,0h-3Zm21.8,0h2.8V0H105Zm10.6-6.9c0,5.2,2.3,7.2,6,7.2s5.9-2,5.9-7.2V0h-2.7V9c0,3.4-1.3,4.5-3.2,4.5s-3.2-1.1-3.2-4.5V0h-2.8Zm19.8,6.9h2.5V8.5c0-1.5-.2-3.6-.3-5h.1l1.2,3.6,2.7,7.1h1.3l2.7-7.1,1.3-3.6h.1c-.1,1.4-.4,3.5-.4,5v7.2h2.6V0h-3.1l-2.8,7.7-1,3h-.1l-1-3L138.4,0h-3V15.7Z"></path>
+                                        <path style="fill:#999" d="M14,0H2A2,2,0,0,0,.59.59L15.41,15.41A2,2,0,0,0,16,14V2A2,2,0,0,0,14,0Z"></path>
+                                        <path style="fill:#666" d="M0,2V14a2,2,0,0,0,2,2H14a2,2,0,0,0,1.41-.59L.59.59A2,2,0,0,0,0,2Z"></path>
+                                      </g>
+                                    </svg>
+                                    <p>ترجمه برنز ، دانشجویی و ارزان</p>
+                                </div>
+                            </div>
+                            <aside class="post-request-tooltip" style="display: none;">
+                                <figure>
+                                    <h3 class="p-t-10"><span class="fa fa-lightbulb-o"></span>Set a Delivery Time</h3>
+                                    <p>This is the amount of time the seller has to work on your order. Please note that a request for faster delivery may impact<br>the price.</p>
+                                </figure>
+                            </aside>
+                        </p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>
         موضوع پروژه خود را مشخص کنید
                         </p>
                             <!-- <select id="ordercategory" name="" class="form-control" ng-model="project.cat" ng-options="option.value for option in categories">
                             </select> -->
-                            <select class="form-control bs-select" name="field">
+                            <select class="form-control bs-select" name="field" ng-model="project.cate" multiple>
 
                                     <option value="32,0">عمومی</option>
                                     <option value="23,0">اقتصاد</option>
@@ -106,7 +127,7 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                             </li> -->
                             <li class="form-step">
                                 <p>
-در مورد پروژه بیشتر توضیح دهید :
+در مورد پروژه بیشتر توضیح دهید 
                                 </p>
                                 <textarea id="projectdesc" type="text" cols="80" rows="10" maxlength="5000" name="project_desc" style="height: auto;" class="form-control" ng-model="project.desc" ckeditor="editorOptions" ></textarea>
                             </li>
@@ -116,7 +137,7 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                 <div class="form-group">
                     <div class="col-sm-12">
                         <p>
-            زمان تحویل
+            زمان تحویل مد نظرتان کی است
                         </p>
                         <p class="input-group" style="width: 100%;">
                           <!-- <span class="input-group-btn">
@@ -124,10 +145,10 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                           </span>
                           <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="بسته" alt-input-formats="altInputFormats" ng-click="open1()" /> -->
                             <div class="input-wrap p-b-30 cf">
-                                <a href="#" class="btn-standard btn-option js-required-days" data-val="1">۲۴ ساعته
-                                </a><a href="#" class="btn-standard btn-option js-required-days" data-val="3">۴۸ ساعته
-                                </a><a href="#" class="btn-standard btn-option js-required-days" data-val="7">یک هفته</a>
-                                <a href="#" class="btn-standard btn-option js-required-days other" data-val="0">دو هفته</a>
+                                <a class="btn-standard btn-option" ng-class="{active: project.day == 1}" data-val="1" ng-click="deliverySet(1)">۲۴ ساعت</a>
+                                <a class="btn-standard btn-option" ng-class="{active: project.day == 2}" data-val="2" ng-click="deliverySet(2)">۴۸ ساعت</a>
+                                <a class="btn-standard btn-option" class="active" ng-class="{active: project.day == 7}" data-val="7" ng-click="deliverySet(7)">یک هفته</a>
+                                <a class="btn-standard btn-option other" ng-class="{active: project.day == 14}" data-val="14" ng-click="deliverySet(14)">دو هفته</a>
                             </div>
                             <aside class="post-request-tooltip" style="display: none;">
                                 <figure>
@@ -143,11 +164,10 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                         <ol>
                             <li class="form-step">
                                 <p>
-            بودجه مورد نظرتان 
+            بودجه مورد نظرتان چقدر است
                                 </p>
                                 <div class="input-wrap p-b-30 cf">
-                                    <input type="text" class="form-control" style="font-size: 15px;width: 50%;" placeholder="حداقل ۱۵،۰۰۰ تومان">
-                                    <input type="hidden" name="request[budget]" value="">
+                                    <input type="text" class="form-control" style="font-size: 15px;width: 50%;" placeholder="حداقل ۱۵،۰۰۰ تومان" ng-model="project.budget"></input>
                                 </div>
                             
                                 <aside class="post-request-tooltip" style="display: none">
@@ -173,70 +193,70 @@ ol, ul {list-style: none; margin: 0;padding: 0;}
                         </p>    
                         <ol>
                             <li class="form-step">
-                                <div ngf-drop ngf-select ng-model="files" class="drop-box" 
+                                <div ng-model="files" class="drop-box" 
                                      ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true" ngf-max-size="20MB"
-                                     accept="image/*,application/pdf" 
-                                     ngf-pattern="'image/*,application/pdf'" ngf-select="uploadFiles($files)" multiple="multiple">
-                                     <p ng-hide="uploading">
-                                     فایل های خود را بارگزاری نمایید 
+                                    ngf-drop="uploadFiles($files)" ngf-select="uploadFiles($files)">
+                                <div class="progressor" ng-style="{'width': progressor + '%'}"></div>
+                                <p ng-hide="progressor">
+                                 فایل های خود را آپلود کنید 
                                      </p>
-                                     <p ng-show="uploading">{{fileProgress + '%'}}</p>
+                                     <p ng-show="progressor">{{progressor + '%'}} در حال آپلود </p>
                                 </div>
                                 <div ngf-no-file-drop>
                                     <p>لطفا از اینترنت اکسپلورر استفاده نکنید،‌ ممنون :)</p>
                                 </div>
-                                <div id="project_docs" class="" ng-show="fileNames[0]">
-                                    <div class="onita-collection">
-                                        <div class="collection-elements" ng-if="!fileNames[0].file">
+                                <div id="project_docs" class="" ng-show="fileNames.length">
+                                    <div class="onita-collection" ng-if="fileNames[0].file">
+                                        <div class="collection-elements">
                                             <div class="collection-item text-center">
                                                 <div class="collection-item-preview">
                                                     <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
                                                     <div class="collection-item-overlay"></div>
                                                     <div class="collection-item-info">
                                                         <div class="file-info">
-                                                            <span name="file-size">{{fileNames[0].size}}</span>
-                                                            <span name="file-type">{{fileNames[0].type}}</span>
+                                                            <span name="file-size">{{fileNames[0].file.size}}</span>
+                                                            <span name="file-type">{{fileNames[0].file.type}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
                                                 </div>
-                                                <div class="collection-item-name">{{fileNames[0].name}}</div>
+                                                <div class="collection-item-name">{{fileNames[0].file.name}}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="onita-collection">
-                                        <div class="collection-elements" ng-if="!fileNames[1].file">
+                                    <div class="onita-collection" ng-if="fileNames[1].file">
+                                        <div class="collection-elements">
                                             <div class="collection-item text-center">
                                                 <div class="collection-item-preview">
                                                     <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
                                                     <div class="collection-item-overlay"></div>
                                                     <div class="collection-item-info">
                                                         <div class="file-info">
-                                                            <span name="file-size">{{fileNames[1].size}}</span>
-                                                            <span name="file-type">{{fileNames[1].type}}</span>
+                                                            <span name="file-size">{{fileNames[1].file.size}}</span>
+                                                            <span name="file-type">{{fileNames[1].file.type}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
                                                 </div>
-                                                <div class="collection-item-name">{{fileNames[1].name}}</div>
+                                                <div class="collection-item-name">{{fileNames[1].file.name}}</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="onita-collection">
-                                        <div class="collection-elements" ng-if="!fileNames[2].file">
+                                    <div class="onita-collection" ng-if="fileNames[2].file">
+                                        <div class="collection-elements">
                                             <div class="collection-item text-center">
                                                 <div class="collection-item-preview">
                                                     <img class="collection-item-img" ng-src="/assets/images/plain.png" alt>
                                                     <div class="collection-item-overlay"></div>
                                                     <div class="collection-item-info">
                                                         <div class="file-info">
-                                                            <span name="file-size">{{fileNames[2].size}}</span>
-                                                            <span name="file-type">{{fileNames[2].type}}</span>
+                                                            <span name="file-size">{{fileNames[2].file.size}}</span>
+                                                            <span name="file-type">{{fileNames[2].file.type}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="collection-item-progress" ng-style="{'width':fileProgess + '%'}"></div>
                                                 </div>
-                                                <div class="collection-item-name">{{fileNames[2].name}}</div>
+                                                <div class="collection-item-name">{{fileNames[2].file.name}}</div>
                                             </div>
                                         </div>
                                     </div>

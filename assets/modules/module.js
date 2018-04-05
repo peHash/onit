@@ -1,5 +1,6 @@
 
 var app=angular.module('onitaApp', [
+  'ngPersian',
   'ngRoute',
   'ngFileUpload',
   'rzModule',
@@ -32,7 +33,7 @@ function routeConfig($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'view/landing.html',
-            controller: 'MyController'
+            controller: 'onitaController'
         })
         .when('/deposit', { 
             templateUrl: 'view/partials/modal-payment.html', 

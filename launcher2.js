@@ -686,14 +686,24 @@ app.post('/sendDocument', function(req,res, next){
 })
 app.post('/v1/orderProject', function(req,res, next){
 
+if (req.body.documents) {
+  for (var doc in req.body.documents) {
+    req.body.documents[doc] = `http://onita.ir/users-docs/${req.body.documents[doc]}`
+  }
+}
 
     var propText = `
-<strong>ثبت پروژه جدید</strong>
+<strong>ثبت پروژه ${req.body.pType}</strong>
+\n
 ${req.body.pCate} موضوع پروژه 
-و فایل هاشو تو ${req.body.pDay} روز می خواد
- مبلغ مورد نظرش ${req.body.pBudg} 
-🆔 <a href="http://t.me/tele_job">@tele_job</a> 
-    `;
+توضیحات : ${req.body.pDesc}
+\n
+زمان تحویل ${req.body.pDay} روز
+ مبلغ پروژه ${req.body.pBudg}
+\n
+${req.body.documents}
+
+ `;
 
     var immiText = `
     <strong>ثبت پروژه جدید</strong>

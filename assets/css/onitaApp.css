@@ -1,7 +1,585 @@
 /*Onita appLab StyleSheets*/
+.home-growth-stack__columns p {
+    font-size: 14px;
+}
+.home-growth-stack__columns .btn {
+    font-size: 15px;
+}
+
+.plans-reason {
+    color: #000;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin: 1.5em 0 3px;
+    padding: 0;
+    list-style: none;
+    margin: 0 0 20px 0;
+    background: url(/assets/images/icon_check.svg) no-repeat;
+    background-position: right center;
+    padding: 0 30px 0 0;
+    text-align: right;
+    direction: rtl;
+    font-size: 12px;
+}
+.pricing-package {
+    max-width: none;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 0.625rem 2.8125rem;
+    border-bottom: 0;
+    padding-bottom: 0;
+    width: 20%;
+    float: left;
+}
+.pricing-package:first-child {
+    border-bottom: 0;
+    margin-left: 0;
+}
+.pricing-package:last-child {
+    width: 33%;;
+} 
+.pricing-package:last-child .pricing-package-article {
+    background: transparent;
+}
+.pricing-package-article {
+    border: 1px solid rgba(189,195,199,0.6);
+    border-radius: 0.3125rem;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    padding: 1.75rem;
+    position: relative;
+    background-color: #fff;
+    z-index: 1;
+    }
+
+.pricing-package h3 {
+    font-size: 1.875rem;
+    margin-bottom: 0.4375rem;
+    letter-spacing: 0.01625rem;
+    line-height: 1.35;
+}
+
+.pricing-package-price {
+    text-align: center;
+    -ms-flex-order: 2;
+    order: 2;
+    margin: 1rem auto;
+    width: 100%;
+    height: 3.75rem;
+    direction: rtl;
+}
+.pricing-package-price span {
+    letter-spacing: 0.01812rem;
+    font-size: 1.6875rem;
+    position: relative;
+    top: 0.4375rem;
+}
+.pricing-package-price ins {
+    font-size: 1rem;
+    margin-left: 0;
+    display: block;
+    font-style: italic;
+    font-weight: 300;
+    text-decoration: none;
+}
+.pricing-package-description {
+    -ms-flex-order: 0;
+    order: 0;
+    color: #737f8b;
+    letter-spacing: 0.0125rem;
+    font-size: 1rem;
+    font-weight: normal;
+    line-height: 1.63;
+    -ms-flex-order: 1;
+    order: 1;
+}
+.pricing-package .cta-in-row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: column nowrap;
+    flex-flow: column nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -ms-flex-align: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 2.125rem;
+    width: 100%;
+    -ms-flex-order: 3;
+    order: 3;
+}
+.pricing-package .cta-in-row .btn-primary {
+    -ms-flex-order: 1;
+    order: 1;
+    border-radius: 0.1875rem;
+}
+.pricing-package .cta-in-row [class^="btn-"] {
+    margin-top: 0.25rem;
+}
+.pricing-package .cta-in-row [class^="btn-"] {
+    min-width: auto;
+    width: 7.5rem;
+    margin: 0;
+    border-width: 1px;
+    border-style: solid;
+}
+.stacked-cta > div, .stacked-cta > a, .stacked-cta > input {
+    float: left;
+}
+.pricing-package .cta-in-row .btn-secondary {
+    -ms-flex-order: 2;
+    order: 2;
+    background: none;
+    border: 1px solid #fff;
+}
+.pricing-package .cta-in-row .btn-secondary {
+    color: #22a7f0;
+}
+.pricing-package .cta-in-row [class^="btn-"] {
+    margin-top: 0.25rem;
+}
+.pricing-package .cta-in-row [class^="btn-"] {
+    min-width: auto;
+    width: 7.5rem;
+    margin: 0;
+}
+.pricing-package-recommended {
+    position: relative;
+}
+.pricing-package-recommend {
+    position: absolute;
+    right: 0;
+    color: #fff;
+    border-radius: 0.3125rem 0.3125rem 0 0;
+    font-size: 1.175rem
+    font-weight: bold;
+    top: -2.625rem;
+    padding: 0.1875rem 0rem 0.25rem;
+    letter-spacing: 0.0375rem;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    background-color: #3fb87f;
+    text-align: center;
+    height: 2.6rem;
+    line-height: 2rem;
+}
+.pricing-package-recommend.bronze {
+    background-color: #999;
+}
+.pricing-package-recommend.silver {
+    background-color: #eeeeee;
+}
+.pricing-package-recommend.premium {
+    background-color: #c8b476;
+}
+
+.pricing-package-recommended .pricing-package-article {
+    box-shadow: 0 1rem 3rem 0 rgba(189,195,199,0.6);
+    border: 0;
+    z-index: 4;
+    background-color: #fff;
+    border-radius: 0 0 0.3125rem 0.3125rem !important;
+}
+.pricing-package .cta-in-row .btn-green-secondary {
+    -ms-flex-order: 2;
+    order: 2;
+    border-color: transparent !important;
+}
+.pricing-package .btn-green-secondary {
+    background-color: transparent !important;
+    border: 1px solid #3fb87f;
+    color: #3fb87f !important;
+}
+.pricing-package .btn-primary, .pricing-package .btn-secondary, .pricing-package .user-menu_sign-up, .pricing-package .btn-green-primary, .pricing-package .btn-green-secondary, .pricing-package .btn-small, #block-box-local-tasks ul li a, .pricing-package .block-system ul li a, .pricing-package .footer-email-signup input[type='submit'], .pricing-package .user-login-form .button, .pricing-package .user-pass .button, .pricing-package .user-form .button, .pricing-package .user-pass-reset .button, .pricing-package .simplesamlphp-auth-login-link , .pricing-table_cnt .btn-primary {
+    font-family: inherit;
+    font-size: 1.175rem;
+    line-height: 2.75rem;
+    border-radius: 0.1875rem;
+    border: 0;
+    outline: none;
+    padding: 0 0.9375rem;
+    background-color: #22a7f0;
+    border-color: #22a7f0;
+    color: #fff;
+    text-decoration: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: inline-block;
+    min-width: 8.5rem;
+    cursor: pointer;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    letter-spacing: 0.0125rem;
+} 
+.pricing-package .list_content p {
+    font-size: 14px;
+}
+
+
+
+
+body nav > .container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#newproject .progressor {
+    position: absolute;
+    left: 0px;
+    top: 0;
+    border: 0;
+    background: linear-gradient(-90deg, rgba(1, 204, 223, 1), rgba(14, 122, 232, .7));
+    width: 0;
+    height: 100%;
+}
+
+svg {
+    display: block;
+    margin: auto;
+}
+
+#newproject div[class*="-badge"] {
+    height: auto;
+    color: #fff;
+    width: 33%;
+    position: relative;
+    display: block;
+    float: left;
+    padding-top: 20px;
+    min-height: 100px;
+}
+
+#newproject div[class*="-badge"]:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+#newproject .premium-badge:hover,#newproject .premium-badge.active {
+    border: 2px #c8b476 solid;
+}
+#newproject .silver-badge:hover,#newproject .silver-badge.active {
+    border: 2px #eee solid;
+}
+#newproject .bronze-badge:hover,#newproject .bronze-badge.active {
+    border: 2px #999 solid;
+}
+
+#newproject div[class*="-badge"] p {
+    font-size: 12px; 
+    text-align: center;
+    margin-top: 13px;
+}
+
+#newproject svg path {
+    fill: #666;
+}
+
+#newproject .input-wrap {
+    margin-bottom: 45px;
+    margin-top: 25px;
+    padding-right: 30px;
+}
+
+#deal_closer .onita-collection {
+    width: 100%;
+}
+
+#deal_closer .collection-item {
+        margin: 10px auto;
+    width: 70px;
+    height: 70px;
+}
+
+#deal_closer .collection-item-preview {
+    height: auto;
+    position: relative;
+}
+
+#deal_closer .collection-item-name {
+    position: absolute;
+    left: 100px;
+    bottom: 0px;
+    top: 0;
+}
+
+.bg_blue {
+    margin: 10px auto;
+    background: #0e7ae8;
+    color: #fff;
+    border: 1px solid #0e7ae8;
+}
+
+.drop-box {
+    background: #F8F8F8;
+    border: 2px dashed #DDD;
+    width: 100%;
+    height: 90px;
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 7px;
+    cursor: pointer;
+    position: relative;
+}
+.dragover {
+    border: 5px dashed blue;
+}
+
+#datePickerBtn {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left-width: 0;
+}
+.dc-bg {
+    background-color: #344a57;
+    background-position: top left;
+    background-repeat: repeat;
+    content: ''; 
+    text-align: center;
+}
+#deal_closer {
+    background-color: #fff;
+    min-height: 300px;
+}
+#deal_closer .form-group {text-align: center;}
+#deal_closer input {
+    margin: 40px auto;
+    font-size: 15px;
+    width: 50%;
+    direction: rtl;
+    background-color: #F8F8F8;
+    height: 50px;
+    margin-bottom: 20px;
+}
+#deal_closer .drop-box {margin: 20px auto;width: 80%;}
+#deal_closer button {
+    margin: 10px auto;
+    background: #0e7ae8;
+    color: #fff;
+    border: 1px solid #0e7ae8;
+}
+#pricing .premium-badge {
+    position: absolute;
+    top: 45%;
+    left: 15%;
+    height: 10px;
+    color: #fff;
+}
+
+#pricing .premium-badge svg path:first-of-type {
+    fill: #fff !important;
+}
+
+#herobox {
+    margin: 10px auto;
+    border: 1px #dfdfdf solid;
+    font-size: 120%;
+    line-height: 1.2;
+}
+#herobox #hero-content {
+    border: 3px #FFF solid;
+    background-color: rgba(220,220,220,0.1);
+}
+#herobox #blurb {
+    float: right;
+    margin: 20px;
+    width: 300px;
+    padding-top: 50px;
+    direction: rtl;
+    color: #bbbfc3;
+    line-height: 43px;
+    word-spacing: 3px;
+    font-size: 16px;
+}
+a#tell-me-more {
+    display: inline-block;
+}
+
+#herobox #desc {
+    margin: 30px auto;
+    text-align: center;
+}
+#herobox #desc b {
+    display: block;
+    padding-left: 18px;
+}
+#herobox #hiw {
+    list-style-type: none;
+    display: inline-block;
+}
+#herobox #hiw li {
+    margin: 20px 60px;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+    color: #bbbfc3;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+#herobox #hiw li:before {
+    margin-bottom: 41px;
+    content: " ";
+    display: block;
+    height: 138px;;
+    width: 100%;
+    background-image: url(/assets/images/onita_spirit.png);
+    background-repeat: no-repeat;
+}
+#herobox #q:before {
+    background-position: -314px 3px;
+}
+#herobox #q {
+    width: 88px; height: 105px;
+}
+#herobox #an:before {
+    background-position: -188px -10px;
+}
+#herobox #an {
+    width: 106px; height: 125px;
+    margin-left: 50px;
+}
+#herobox #b:before {
+    background-position: -10px -10px;
+}
+#herobox #b {
+    width: 158px; height: 175px;
+    margin-left: 40px;
+}
+
+div[class^="bg-Layer"] {
+    margin: 0 auto;
+}
+.bg-Layer_sub {
+    width: 50px; height: 45px;
+    background: url('/assets/images/onita_spirit.png') -80px -273px;
+}
+.bg-Layer_sub_sub {
+    width: 48px; height: 24px;
+    background: url('/assets/images/onita_spirit.png') -188px -155px;
+}
+.bg-Layer_sub_tra {
+    width: 29px; height: 38px;
+    background: url('/assets/images/onita_spirit.png') -360px -273px;
+}
+.bg-Layer_sub_audio {
+    width: 50px; height: 46px;
+    background: url('/assets/images/onita_spirit.png') -220px -205px;
+}
+
+[data-background='gradient1'] {
+    background-image: -webkit-gradient(linear, left top, right top, from(#ff7a59), to(#ff8f59));
+    background-image: linear-gradient(to right, #ff7a59, #ff8f59);
+}
+.home-growth-stack {
+    padding: 100px 0 50px;
+}
+[data-background]:not([data-background*='white']) {
+    color: #fff;
+}
+
 #telegram-pricelist a {
     font-size: 13px;
 }
+.hsg-page-width-normal {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.home-growth-stack__logo-wrapper {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.home-growth-stack__logo-wrapper .home-growth-stack__logo {
+    max-height: 40px;
+}
+.home-growth-stack__logo-header {
+    margin: 20px 0;
+    font-size: 2.75em;
+}
+.home-growth-stack__logo-description {
+    /*font-weight: 600;*/
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+.home-growth-stack nav {
+    background-image: -webkit-gradient(linear, left top, right top, from(#ff7a59), to(#ff8f59)), linear-gradient(to right, #ff7a59, #ff8f59);
+}
+.home-growth-stack__columns {
+    text-align: center;
+    transition: -webkit-transform .35s ease;
+    transition: transform .35s ease;
+    transition: transform .35s ease,-webkit-transform .35s ease;
+    margin: 0 auto;
+    display: block;
+    padding: 0 50px 100px;
+    background: #ff8f59;
+}
+@media (min-width: 501px)
+.hsg-flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    }
+.home-growth-stack__columns ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    border: 1px solid #cbd6e2;
+    border-radius: 3px;
+    width: 100%;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    padding: 0;
+}
+.hsg-page-width-normal{
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.home-growth-stack__columns ul li:first-child {
+    border-left: 0;
+}
+.home-growth-stack__columns ul li {
+    background-color: #f2f5f8;
+    transition: background-color .35s ease;
+    border-top: 0;
+    border-left: 1px solid #cbd6e2;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+.home-growth-stack__columns ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #425b76;
+    transition: color 1s ease,background-color .3s ease;
+    padding: 30px 20px;
+    text-align: center; 
+}
+
+    
 
 .btn-option {
     font-size: 14px;
@@ -37,11 +615,13 @@
 .btn-standard:first-child {
     margin-right: 0;
 }
-.btn-standard:hover {
-    color: rgba(1, 204, 223, 1);
-    border: 1px rgba(1, 204, 223, .7) solid;
+.btn-standard:hover, .btn-standard.active {
+    color: #66afe9;
+    border-color: #66afe9;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     text-decoration: none;
 }
+
 
 
 #header {
@@ -88,6 +668,7 @@ border-color: transparent;
     padding: 6px 15px;
 }
 .dropdown-menu > li > a .text-muted {margin-right: 10px;font-size: smaller;margin-top: 2px;}
+
 
 /*Modal New Project*/
 
